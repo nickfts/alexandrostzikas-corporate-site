@@ -11,19 +11,7 @@
   const heroSlogan = document.querySelector(".hero-slogan");
 
   if (!prefersReducedMotion && heroSlogan) {
-    let shouldAnimateSlogan = true;
-    try {
-      shouldAnimateSlogan = sessionStorage.getItem("hero_slogan_seen") !== "1";
-      if (shouldAnimateSlogan) {
-        sessionStorage.setItem("hero_slogan_seen", "1");
-      }
-    } catch (error) {
-      shouldAnimateSlogan = true;
-    }
-
-    if (shouldAnimateSlogan) {
-      document.documentElement.classList.add("motion-ready");
-    }
+    document.documentElement.classList.add("motion-ready");
   }
 
   // Identity links may land on public pages. Force redirect to /admin so Decap/Identity can process the token.
