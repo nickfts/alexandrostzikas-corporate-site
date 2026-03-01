@@ -1,11 +1,11 @@
 {
-  "title": "Antipasti Ψητά Λαχανικά",
-  "slug": "antipasti-psita-laxanika",
-  "category": "elies-antipasti",
-  "subcategory": "",
-  "description": "Μείγμα ψητών λαχανικών σε μαρινάδα με ήπια οξύτητα, έτοιμο για άμεσο σερβίρισμα.",
   "packaging": "4 x 2.5kg",
-  "image": "/assets/uploads/images/prod-antipasti-laxanika.svg",
+  "slug": "antipasti-psita-laxanika",
   "order": 4,
-  "is_visible": true
+  "title": "Antipasti Ψητά Λαχανικά",
+  "image": "/assets/uploads/images/prod-antipasti-laxanika.svg",
+  "description": "Μείγμα ψητών λαχανικών σε μαρινάδα με ήπια οξύτητα, έτοιμο για άμεσο σερβίρισμα.",
+  "is_visible": true,
+  "category": "zymika-delicatessen",
+  "subcategory": ""
 }
