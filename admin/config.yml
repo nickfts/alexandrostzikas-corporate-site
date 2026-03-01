@@ -1,0 +1,244 @@
+backend:
+  name: git-gateway
+  branch: main
+
+local_backend: true
+publish_mode: simple
+
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+site_url: "https://example.com"
+display_url: "https://example.com"
+logo_url: "/assets/branding/logo.png"
+
+slug:
+  encoding: "ascii"
+  clean_accents: true
+  sanitize_replacement: "-"
+
+collections:
+  - name: "site_settings"
+    label: "Ρυθμίσεις Ιστότοπου"
+    files:
+      - file: "content/el/site_settings.json"
+        name: "general"
+        label: "Στοιχεία Επιχείρησης"
+        format: "json"
+        fields:
+          - { label: "Επωνυμία Επιχείρησης", name: "company_name", widget: "string" }
+          - { label: "Διεύθυνση", name: "address", widget: "string" }
+          - { label: "Κύριο Τηλέφωνο", name: "primary_phone", widget: "string" }
+          - { label: "Ενεργοποίηση 2ου Τηλεφώνου", name: "enable_second_phone", widget: "boolean", default: false, hint: "Αν απενεργοποιηθεί, το 2ο τηλέφωνο δεν εμφανίζεται καθόλου." }
+          - { label: "2ο Τηλέφωνο", name: "second_phone", widget: "string", required: false }
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "Website URL", name: "website_url", widget: "string", required: false }
+          - { label: "Website Label", name: "website_label", widget: "string", required: false }
+          - { label: "Ενεργοποίηση Ωραρίου", name: "enable_hours", widget: "boolean", default: false, hint: "Από προεπιλογή παραμένει κρυφό." }
+          - { label: "Κείμενο Ωραρίου", name: "business_hours", widget: "string", required: false }
+          - { label: "Google Maps Link", name: "google_maps_url", widget: "string", required: false }
+          - { label: "Google Map Embed URL", name: "map_embed_url", widget: "string", required: false }
+          - { label: "Facebook", name: "social_facebook", widget: "string", required: false }
+          - { label: "Instagram", name: "social_instagram", widget: "string", required: false }
+          - { label: "LinkedIn", name: "social_linkedin", widget: "string", required: false }
+          - { label: "Λογότυπο", name: "logo_path", widget: "image", required: false, hint: "Μέγιστο προτεινόμενο μέγεθος: 2MB." }
+          - { label: "Λογότυπο με Σλόγκαν", name: "logo_slogan_path", widget: "image", required: false, hint: "Μέγιστο προτεινόμενο μέγεθος: 2MB." }
+          - { label: "OpenGraph Εικόνα", name: "og_image", widget: "image", required: false, hint: "Μέγιστο προτεινόμενο μέγεθος: 2MB." }
+          - { label: "Default Meta Description", name: "default_meta_description", widget: "text", required: false }
+
+  - name: "pages"
+    label: "Σελίδες"
+    files:
+      - file: "content/el/pages/home.json"
+        name: "home"
+        label: "Αρχική"
+        format: "json"
+        fields:
+          - { label: "Hero Eyebrow", name: "hero_eyebrow", widget: "string", required: false }
+          - { label: "Hero Τίτλος", name: "hero_title", widget: "string" }
+          - { label: "Hero Κείμενο", name: "hero_text", widget: "text" }
+          - { label: "Hero Εικόνα", name: "hero_image", widget: "image", required: false, hint: "Μέγιστο προτεινόμενο μέγεθος: 2MB." }
+          - { label: "Τίτλος Κατηγοριών", name: "categories_title", widget: "string", required: false }
+          - { label: "Κείμενο Κατηγοριών", name: "categories_text", widget: "text", required: false }
+          - { label: "CTA Τίτλος", name: "cta_title", widget: "string", required: false }
+          - { label: "CTA Κείμενο", name: "cta_text", widget: "text", required: false }
+          - { label: "SEO Title", name: "seo_title", widget: "string", required: false }
+          - { label: "SEO Description", name: "seo_description", widget: "text", required: false }
+          - { label: "OG Image", name: "og_image", widget: "image", required: false }
+
+      - file: "content/el/pages/about.json"
+        name: "about"
+        label: "Σχετικά"
+        format: "json"
+        fields:
+          - { label: "Τίτλος", name: "title", widget: "string" }
+          - { label: "Κείμενο", name: "body", widget: "markdown" }
+          - { label: "SEO Title", name: "seo_title", widget: "string", required: false }
+          - { label: "SEO Description", name: "seo_description", widget: "text", required: false }
+          - { label: "OG Image", name: "og_image", widget: "image", required: false }
+
+      - file: "content/el/pages/products.json"
+        name: "products"
+        label: "Προϊόντα"
+        format: "json"
+        fields:
+          - { label: "Τίτλος", name: "title", widget: "string" }
+          - { label: "Εισαγωγή", name: "intro", widget: "text", required: false }
+          - { label: "SEO Title", name: "seo_title", widget: "string", required: false }
+          - { label: "SEO Description", name: "seo_description", widget: "text", required: false }
+          - { label: "OG Image", name: "og_image", widget: "image", required: false }
+
+      - file: "content/el/pages/leaflets.json"
+        name: "leaflets"
+        label: "Φυλλάδια"
+        format: "json"
+        fields:
+          - { label: "Τίτλος", name: "title", widget: "string" }
+          - { label: "Εισαγωγή", name: "intro", widget: "text", required: false }
+          - { label: "SEO Title", name: "seo_title", widget: "string", required: false }
+          - { label: "SEO Description", name: "seo_description", widget: "text", required: false }
+          - { label: "OG Image", name: "og_image", widget: "image", required: false }
+
+      - file: "content/el/pages/contact.json"
+        name: "contact"
+        label: "Επικοινωνία"
+        format: "json"
+        fields:
+          - { label: "Τίτλος", name: "title", widget: "string" }
+          - { label: "Εισαγωγή", name: "intro", widget: "text", required: false }
+          - { label: "SEO Title", name: "seo_title", widget: "string", required: false }
+          - { label: "SEO Description", name: "seo_description", widget: "text", required: false }
+          - { label: "OG Image", name: "og_image", widget: "image", required: false }
+
+      - file: "content/el/pages/privacy.json"
+        name: "privacy"
+        label: "Πολιτική Απορρήτου"
+        format: "json"
+        fields:
+          - { label: "Τίτλος", name: "title", widget: "string" }
+          - { label: "Κείμενο", name: "body", widget: "markdown" }
+          - { label: "SEO Title", name: "seo_title", widget: "string", required: false }
+          - { label: "SEO Description", name: "seo_description", widget: "text", required: false }
+
+      - file: "content/el/pages/cookies.json"
+        name: "cookies"
+        label: "Πολιτική Cookies"
+        format: "json"
+        fields:
+          - { label: "Τίτλος", name: "title", widget: "string" }
+          - { label: "Κείμενο", name: "body", widget: "markdown" }
+          - { label: "SEO Title", name: "seo_title", widget: "string", required: false }
+          - { label: "SEO Description", name: "seo_description", widget: "text", required: false }
+
+  - name: "categories"
+    label: "Κατηγορίες Προϊόντων"
+    label_singular: "Κατηγορία"
+    folder: "content/el/categories"
+    create: true
+    extension: "json"
+    format: "json"
+    identifier_field: "title"
+    summary: "{{fields.title}} (/{{fields.slug}})"
+    fields:
+      - { label: "Τίτλος", name: "title", widget: "string" }
+      - label: "Slug (λατινικά)"
+        name: "slug"
+        widget: "string"
+        pattern: ["^[a-z0-9-]+$", "Χρησιμοποίησε μόνο λατινικά, αριθμούς και παύλες."]
+      - { label: "Τίτλος στο Μενού", name: "menu_title", widget: "string", required: false }
+      - { label: "Εισαγωγικό Κείμενο", name: "intro", widget: "markdown", hint: "Προτείνεται 5-7 γραμμές περιγραφικού κειμένου." }
+      - { label: "Εικόνα Κάρτας", name: "card_image", widget: "image", required: false, hint: "Μέγιστο προτεινόμενο μέγεθος: 2MB." }
+      - { label: "Banner Εικόνα", name: "banner_image", widget: "image", required: false, hint: "Μέγιστο προτεινόμενο μέγεθος: 2MB." }
+      - { label: "Meta Description", name: "meta_description", widget: "text", required: false }
+      - { label: "Σειρά Εμφάνισης", name: "order", widget: "number", default: 100, value_type: "int", min: 1 }
+      - { label: "Εμφάνιση στο site", name: "is_visible", widget: "boolean", default: true }
+
+  - name: "subcategories"
+    label: "Υποκατηγορίες"
+    label_singular: "Υποκατηγορία"
+    folder: "content/el/subcategories"
+    create: true
+    extension: "json"
+    format: "json"
+    identifier_field: "title"
+    summary: "{{fields.title}} -> {{fields.category}}"
+    fields:
+      - { label: "Τίτλος", name: "title", widget: "string" }
+      - label: "Slug (λατινικά)"
+        name: "slug"
+        widget: "string"
+        pattern: ["^[a-z0-9-]+$", "Χρησιμοποίησε μόνο λατινικά, αριθμούς και παύλες."]
+      - label: "Γονική Κατηγορία"
+        name: "category"
+        widget: "relation"
+        collection: "categories"
+        value_field: "slug"
+        search_fields: ["title", "slug"]
+        display_fields: ["title"]
+      - { label: "Εισαγωγικό Κείμενο", name: "intro", widget: "markdown", required: false }
+      - { label: "Banner Εικόνα", name: "banner_image", widget: "image", required: false, hint: "Μέγιστο προτεινόμενο μέγεθος: 2MB." }
+      - { label: "Meta Description", name: "meta_description", widget: "text", required: false }
+      - { label: "Σειρά Εμφάνισης", name: "order", widget: "number", default: 100, value_type: "int", min: 1 }
+      - { label: "Εμφάνιση στο site", name: "is_visible", widget: "boolean", default: true }
+
+  - name: "products"
+    label: "Προϊόντα"
+    label_singular: "Προϊόν"
+    folder: "content/el/products"
+    create: true
+    extension: "json"
+    format: "json"
+    identifier_field: "title"
+    summary: "{{fields.title}} ({{fields.category}}/{{fields.subcategory}})"
+    fields:
+      - { label: "Όνομα Προϊόντος", name: "title", widget: "string" }
+      - label: "Slug (λατινικά)"
+        name: "slug"
+        widget: "string"
+        required: false
+        pattern: ["^[a-z0-9-]*$", "Χρησιμοποίησε μόνο λατινικά, αριθμούς και παύλες."]
+      - label: "Κατηγορία (Υποχρεωτικό)"
+        name: "category"
+        widget: "relation"
+        collection: "categories"
+        value_field: "slug"
+        search_fields: ["title", "slug"]
+        display_fields: ["title"]
+      - label: "Υποκατηγορία (Προαιρετικό)"
+        name: "subcategory"
+        widget: "relation"
+        collection: "subcategories"
+        value_field: "slug"
+        search_fields: ["title", "slug", "category"]
+        display_fields: ["title", "category"]
+        required: false
+        hint: "Αν μείνει κενό, το προϊόν θα εμφανιστεί απευθείας στη σελίδα κατηγορίας."
+      - { label: "Σύντομη Περιγραφή", name: "description", widget: "text" }
+      - { label: "Συσκευασία", name: "packaging", widget: "string", required: false, hint: "Παράδειγμα: 12x330ml" }
+      - { label: "Εικόνα Προϊόντος", name: "image", widget: "image", hint: "Μέγιστο προτεινόμενο μέγεθος: 2MB." }
+      - { label: "Σειρά Εμφάνισης", name: "order", widget: "number", default: 100, value_type: "int", min: 1 }
+      - { label: "Εμφάνιση στο site", name: "is_visible", widget: "boolean", default: true }
+
+  - name: "leaflets"
+    label: "Φυλλάδια"
+    label_singular: "Φυλλάδιο"
+    folder: "content/el/leaflets"
+    create: true
+    extension: "json"
+    format: "json"
+    identifier_field: "title"
+    summary: "{{fields.title}}"
+    fields:
+      - { label: "Τίτλος", name: "title", widget: "string" }
+      - label: "Slug (λατινικά)"
+        name: "slug"
+        widget: "string"
+        required: false
+        pattern: ["^[a-z0-9-]*$", "Χρησιμοποίησε μόνο λατινικά, αριθμούς και παύλες."]
+      - { label: "Κατηγορία (προαιρετική σημείωση)", name: "category", widget: "string", required: false }
+      - { label: "Περιγραφή", name: "description", widget: "text", required: false }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", hint: "Μέγιστο προτεινόμενο μέγεθος: 2MB." }
+      - { label: "Αρχείο Φυλλαδίου (PDF ή εικόνα)", name: "file", widget: "file", hint: "Για PDF προτείνεται μέγιστο 20MB." }
+      - { label: "Το αρχείο είναι PDF;", name: "is_pdf", widget: "boolean", default: true }
+      - { label: "Σειρά Εμφάνισης", name: "order", widget: "number", default: 100, value_type: "int", min: 1 }
+      - { label: "Εμφάνιση στο site", name: "is_visible", widget: "boolean", default: true }

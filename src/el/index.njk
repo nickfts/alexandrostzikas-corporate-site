@@ -1,0 +1,64 @@
+---
+layout: layouts/base.njk
+permalink: /el/index.html
+navKey: home
+eleventyComputed:
+  pageTitle: "{{ siteData.pages.home.seo_title or (siteData.settings.company_name + ' | Αρχική') }}"
+  pageDescription: "{{ siteData.pages.home.seo_description or siteData.settings.default_meta_description or meta.defaultDescription }}"
+  pageImage: "{{ siteData.pages.home.og_image or siteData.settings.og_image or meta.defaultImage }}"
+---
+<section
+  class="hero reveal-on-view"
+  style="background-image: linear-gradient(115deg, rgba(44, 36, 31, 0.66), rgba(99, 86, 77, 0.45)), url('{% if siteData.pages.home.hero_image %}{{ siteData.pages.home.hero_image }}{% else %}/assets/branding/CardFront.jpg{% endif %}');"
+>
+  <div class="container hero-content">
+    <p class="eyebrow">{{ siteData.pages.home.hero_eyebrow }}</p>
+    <h1>{{ siteData.pages.home.hero_title }}</h1>
+    <p class="hero-text">{{ siteData.pages.home.hero_text }}</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <h2>{{ siteData.pages.home.categories_title }}</h2>
+      <p>{{ siteData.pages.home.categories_text }}</p>
+    </div>
+
+    {% set visibleCategories = siteData.categories | where('is_visible', true) %}
+    {% if visibleCategories.length %}
+    <div class="card-grid card-grid-categories">
+      {% for category in visibleCategories %}
+      {% if loop.index <= 6 %}
+      <article class="card card-category">
+        <a href="/el/products/{{ category.slug }}/" class="card-media-link">
+          <img
+            src="{% if category.card_image %}{{ category.card_image }}{% elseif category.banner_image %}{{ category.banner_image }}{% else %}/assets/branding/logo-slogan.png{% endif %}"
+            alt="{{ category.title }}"
+            loading="lazy"
+          />
+        </a>
+        <div class="card-body">
+          <h3><a href="/el/products/{{ category.slug }}/">{{ category.title }}</a></h3>
+          <p>{{ category.intro | striptags | truncate(120, true, '...') }}</p>
+        </div>
+      </article>
+      {% endif %}
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="state-message">Δεν έχουν οριστεί ακόμη κατηγορίες προϊόντων.</p>
+    {% endif %}
+  </div>
+</section>
+
+<section class="section section-cta">
+  <div class="container cta-box">
+    <h2>{{ siteData.pages.home.cta_title }}</h2>
+    <p>{{ siteData.pages.home.cta_text }}</p>
+    <div class="cta-actions">
+      <a href="tel:{{ siteData.settings.primary_phone | replace(' ', '') }}">{{ siteData.settings.primary_phone }}</a>
+      <a href="mailto:{{ siteData.settings.email }}">{{ siteData.settings.email }}</a>
+    </div>
+  </div>
+</section>

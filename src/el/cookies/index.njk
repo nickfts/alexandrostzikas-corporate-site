@@ -1,0 +1,17 @@
+---
+layout: layouts/base.njk
+permalink: /el/cookies/index.html
+navKey: cookies
+eleventyComputed:
+  pageTitle: "{{ siteData.pages.cookies.seo_title or (siteData.settings.company_name + ' | Πολιτική Cookies') }}"
+  pageDescription: "{{ siteData.pages.cookies.seo_description or siteData.settings.default_meta_description or meta.defaultDescription }}"
+---
+<section class="section section-page-head">
+  <div class="container narrow">
+    <p class="eyebrow">Νομικά</p>
+    <h1>{{ siteData.pages.cookies.title }}</h1>
+    <div class="rich-text">
+      {{ siteData.pages.cookies.body | markdown | safe }}
+    </div>
+  </div>
+</section>

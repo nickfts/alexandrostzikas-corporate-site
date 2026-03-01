@@ -1,0 +1,68 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: siteData.categories
+  size: 1
+  alias: category
+permalink: "/el/products/{{ category.slug }}/index.html"
+navKey: products
+eleventyComputed:
+  pageTitle: "{{ siteData.settings.company_name + ' | ' + category.title }}"
+  pageDescription: "{{ category.meta_description or siteData.settings.default_meta_description or meta.defaultDescription }}"
+  pageImage: "{{ category.banner_image or category.card_image or siteData.settings.og_image or meta.defaultImage }}"
+---
+<section class="section section-page-head">
+  <div class="container">
+    <p class="eyebrow">Κατηγορία</p>
+    <h1>{{ category.title }}</h1>
+    <div class="rich-text rich-text-intro">
+      {{ category.intro | markdown | safe }}
+    </div>
+  </div>
+</section>
+
+<section class="section section-tight">
+  <div class="container">
+    <h2>Υποκατηγορίες</h2>
+    {% set subcategories = siteData.subcategoriesByCategory[category.slug] %}
+    {% if subcategories and subcategories.length %}
+    <div class="subcategory-list">
+      {% for subcategory in subcategories %}
+      <article class="subcategory-item">
+        <h3>
+          <a href="/el/products/{{ category.slug }}/{{ subcategory.slug }}/">{{ subcategory.title }}</a>
+        </h3>
+        <p>{{ subcategory.intro | striptags | truncate(140, true, '...') }}</p>
+      </article>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="state-message">Δεν υπάρχουν ακόμη υποκατηγορίες σε αυτή την κατηγορία.</p>
+    {% endif %}
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>Προϊόντα Κατηγορίας</h2>
+    {% set categoryProducts = siteData.productsByCategory[category.slug] %}
+    {% if categoryProducts and categoryProducts.length %}
+    <div class="card-grid card-grid-products">
+      {% for product in categoryProducts %}
+      <article class="card card-product">
+        <img src="{{ product.image or '/assets/branding/logo-slogan.png' }}" alt="{{ product.title }}" loading="lazy" />
+        <div class="card-body">
+          <h3>{{ product.title }}</h3>
+          <p>{{ product.description }}</p>
+          {% if product.packaging %}
+          <p class="packaging">{{ product.packaging }}</p>
+          {% endif %}
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="state-message">Δεν υπάρχουν ακόμη προϊόντα που να ανήκουν μόνο σε αυτή την κατηγορία.</p>
+    {% endif %}
+  </div>
+</section>

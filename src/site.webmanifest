@@ -1,0 +1,16 @@
+{
+  "name": "Εμπορία Τροφίμων",
+  "short_name": "Εμπορία Τροφίμων",
+  "lang": "el",
+  "start_url": "/el/",
+  "display": "standalone",
+  "background_color": "#f3f2f0",
+  "theme_color": "#63564d",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "64x64",
+      "type": "image/svg+xml"
+    }
+  ]
+}

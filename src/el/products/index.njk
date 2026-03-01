@@ -1,0 +1,44 @@
+---
+layout: layouts/base.njk
+permalink: /el/products/index.html
+navKey: products
+eleventyComputed:
+  pageTitle: "{{ siteData.pages.products.seo_title or (siteData.settings.company_name + ' | Κατηγορίες Προϊόντων') }}"
+  pageDescription: "{{ siteData.pages.products.seo_description or siteData.settings.default_meta_description or meta.defaultDescription }}"
+  pageImage: "{{ siteData.pages.products.og_image or siteData.settings.og_image or meta.defaultImage }}"
+---
+<section class="section section-page-head">
+  <div class="container">
+    <p class="eyebrow">Κατηγορίες Προϊόντων</p>
+    <h1>{{ siteData.pages.products.title }}</h1>
+    <p>{{ siteData.pages.products.intro }}</p>
+  </div>
+</section>
+
+<section class="section section-tight">
+  <div class="container">
+    {% if siteData.categories.length %}
+    <div class="card-grid card-grid-categories">
+      {% for category in siteData.categories %}
+      {% if category.is_visible %}
+      <article class="card card-category">
+        <a href="/el/products/{{ category.slug }}/" class="card-media-link">
+          <img
+            src="{% if category.card_image %}{{ category.card_image }}{% elseif category.banner_image %}{{ category.banner_image }}{% else %}/assets/branding/logo-slogan.png{% endif %}"
+            alt="{{ category.title }}"
+            loading="lazy"
+          />
+        </a>
+        <div class="card-body">
+          <h2><a href="/el/products/{{ category.slug }}/">{{ category.title }}</a></h2>
+          <p>{{ category.intro | striptags | truncate(140, true, '...') }}</p>
+        </div>
+      </article>
+      {% endif %}
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="state-message">Δεν έχουν προστεθεί ακόμη κατηγορίες προϊόντων.</p>
+    {% endif %}
+  </div>
+</section>

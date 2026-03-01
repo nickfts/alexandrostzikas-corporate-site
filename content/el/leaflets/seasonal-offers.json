@@ -1,0 +1,11 @@
+{
+  "title": "Προτάσεις Εποχής",
+  "slug": "seasonal-offers",
+  "category": "offers",
+  "description": "Συνοπτική παρουσίαση προτεινόμενων επιλογών για εποχικές ανάγκες.",
+  "thumbnail": "/assets/uploads/images/leaflet-offers-thumb.svg",
+  "file": "/assets/uploads/leaflets/seasonal-offers.pdf",
+  "is_pdf": true,
+  "order": 2,
+  "is_visible": true
+}

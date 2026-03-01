@@ -1,0 +1,52 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: siteData.subcategories
+  size: 1
+  alias: subcategory
+permalink: "/el/products/{{ subcategory.category }}/{{ subcategory.slug }}/index.html"
+navKey: products
+eleventyComputed:
+  pageTitle: "{{ siteData.settings.company_name + ' | ' + subcategory.title }}"
+  pageDescription: "{{ subcategory.meta_description or siteData.settings.default_meta_description or meta.defaultDescription }}"
+  pageImage: "{{ subcategory.banner_image or siteData.settings.og_image or meta.defaultImage }}"
+---
+<section class="section section-page-head">
+  <div class="container">
+    <p class="eyebrow">Υποκατηγορία</p>
+    <h1>{{ subcategory.title }}</h1>
+    <p class="breadcrumb">
+      <a href="/el/products/">Κατηγορίες</a>
+      <span>/</span>
+      <a href="/el/products/{{ subcategory.category }}/">{{ siteData.categoryBySlug[subcategory.category].title }}</a>
+    </p>
+    <div class="rich-text rich-text-intro">
+      {{ subcategory.intro | markdown | safe }}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    {% set key = subcategory.category + '/' + subcategory.slug %}
+    {% set items = siteData.productsBySubcategory[key] %}
+    {% if items and items.length %}
+    <div class="card-grid card-grid-products">
+      {% for product in items %}
+      <article class="card card-product">
+        <img src="{{ product.image or '/assets/branding/logo-slogan.png' }}" alt="{{ product.title }}" loading="lazy" />
+        <div class="card-body">
+          <h2>{{ product.title }}</h2>
+          <p>{{ product.description }}</p>
+          {% if product.packaging %}
+          <p class="packaging">{{ product.packaging }}</p>
+          {% endif %}
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="state-message">Δεν υπάρχουν ακόμη προϊόντα σε αυτή την υποκατηγορία.</p>
+    {% endif %}
+  </div>
+</section>

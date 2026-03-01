@@ -1,0 +1,38 @@
+---
+permalink: /sitemap.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>{{ meta.siteUrl }}/el/</loc>
+  </url>
+  <url>
+    <loc>{{ meta.siteUrl }}/el/about/</loc>
+  </url>
+  <url>
+    <loc>{{ meta.siteUrl }}/el/products/</loc>
+  </url>
+  {% for category in siteData.categories %}
+  <url>
+    <loc>{{ meta.siteUrl }}/el/products/{{ category.slug }}/</loc>
+  </url>
+  {% endfor %}
+  {% for subcategory in siteData.subcategories %}
+  <url>
+    <loc>{{ meta.siteUrl }}/el/products/{{ subcategory.category }}/{{ subcategory.slug }}/</loc>
+  </url>
+  {% endfor %}
+  <url>
+    <loc>{{ meta.siteUrl }}/el/leaflets/</loc>
+  </url>
+  <url>
+    <loc>{{ meta.siteUrl }}/el/contact/</loc>
+  </url>
+  <url>
+    <loc>{{ meta.siteUrl }}/el/privacy/</loc>
+  </url>
+  <url>
+    <loc>{{ meta.siteUrl }}/el/cookies/</loc>
+  </url>
+</urlset>

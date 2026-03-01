@@ -1,0 +1,11 @@
+{
+  "title": "Κατάλογος Προϊόντων 2026",
+  "slug": "catalog-products-2026",
+  "category": "general",
+  "description": "Βασικός κατάλογος με ενδεικτικές κατηγορίες και προϊόντα συνεργασίας.",
+  "thumbnail": "/assets/uploads/images/leaflet-catalog-thumb.svg",
+  "file": "/assets/uploads/leaflets/catalog-products.pdf",
+  "is_pdf": true,
+  "order": 1,
+  "is_visible": true
+}

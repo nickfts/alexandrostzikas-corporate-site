@@ -1,0 +1,74 @@
+---
+layout: layouts/base.njk
+permalink: /el/leaflets/index.html
+navKey: leaflets
+eleventyComputed:
+  pageTitle: "{{ siteData.pages.leaflets.seo_title or (siteData.settings.company_name + ' | Φυλλάδια') }}"
+  pageDescription: "{{ siteData.pages.leaflets.seo_description or siteData.settings.default_meta_description or meta.defaultDescription }}"
+  pageImage: "{{ siteData.pages.leaflets.og_image or siteData.settings.og_image or meta.defaultImage }}"
+---
+<section class="section section-page-head">
+  <div class="container">
+    <p class="eyebrow">Φυλλάδια</p>
+    <h1>{{ siteData.pages.leaflets.title }}</h1>
+    <p>{{ siteData.pages.leaflets.intro }}</p>
+  </div>
+</section>
+
+<section class="section section-tight">
+  <div class="container">
+    {% set visibleLeaflets = siteData.leaflets | where('is_visible', true) %}
+    {% if visibleLeaflets.length %}
+    <div class="card-grid card-grid-leaflets">
+      {% for leaflet in visibleLeaflets %}
+      <article class="card card-leaflet">
+        <img src="{{ leaflet.thumbnail or '/assets/branding/logo-slogan.png' }}" alt="{{ leaflet.title }}" loading="lazy" />
+        <div class="card-body">
+          <h2>{{ leaflet.title }}</h2>
+          <p>{{ leaflet.description }}</p>
+          <div class="leaflet-actions">
+            <button
+              type="button"
+              class="btn btn-outline leaflet-open"
+              data-file="{{ leaflet.file }}"
+              data-title="{{ leaflet.title }}"
+              data-type="{% if leaflet.is_pdf %}pdf{% else %}image{% endif %}"
+            >
+              Προβολή
+            </button>
+            <a class="btn btn-solid" href="{{ leaflet.file }}" target="_blank" rel="noopener noreferrer" download>
+              Λήψη
+            </a>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="state-message">Δεν έχουν προστεθεί ακόμη φυλλάδια.</p>
+    {% endif %}
+  </div>
+</section>
+
+<div class="leaflet-modal" id="leaflet-modal" hidden>
+  <div class="leaflet-modal-backdrop" data-close-viewer></div>
+  <div class="leaflet-modal-panel" role="dialog" aria-modal="true" aria-labelledby="leaflet-viewer-title">
+    <div class="leaflet-modal-head">
+      <h2 id="leaflet-viewer-title">Προβολή φυλλαδίου</h2>
+      <button type="button" class="icon-btn" data-close-viewer aria-label="Κλείσιμο προβολής">✕</button>
+    </div>
+    <div class="leaflet-modal-toolbar">
+      <button type="button" class="icon-btn" data-prev-page disabled>‹</button>
+      <span class="page-indicator" data-page-indicator>Σελίδα 1 / 1</span>
+      <button type="button" class="icon-btn" data-next-page disabled>›</button>
+      <button type="button" class="icon-btn" data-zoom-out aria-label="Σμίκρυνση">−</button>
+      <button type="button" class="icon-btn" data-zoom-in aria-label="Μεγέθυνση">＋</button>
+      <a class="btn btn-solid" data-download-leaflet target="_blank" rel="noopener noreferrer" download>Λήψη</a>
+    </div>
+    <div class="leaflet-modal-content" data-viewer-content>
+      <canvas data-pdf-canvas hidden></canvas>
+      <img data-image-viewer alt="" hidden />
+      <p class="state-message" data-viewer-message hidden>Δεν ήταν δυνατή η φόρτωση του αρχείου.</p>
+    </div>
+  </div>
+</div>

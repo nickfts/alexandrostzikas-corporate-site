@@ -1,0 +1,21 @@
+{
+  "company_name": "Αλεξανδρος Τζίκας - Εμπορία Τροφίμων",
+  "address": "Ανατολικής Θράκης 12, Θεσσαλονίκη, 54627",
+  "primary_phone": "+30 2310 000000",
+  "enable_second_phone": false,
+  "second_phone": "+30 6940 000000",
+  "email": "info@example-foods.gr",
+  "website_url": "https://example.com",
+  "website_label": "www.example.com",
+  "enable_hours": false,
+  "business_hours": "Δευτέρα - Παρασκευή: 08:00 - 16:00",
+  "google_maps_url": "https://maps.google.com/",
+  "map_embed_url": "https://www.google.com/maps?q=Thessaloniki&output=embed",
+  "social_facebook": "https://facebook.com/",
+  "social_instagram": "https://instagram.com/",
+  "social_linkedin": "https://linkedin.com/",
+  "logo_path": "/assets/branding/logo.png",
+  "logo_slogan_path": "/assets/branding/logo-slogan.png",
+  "og_image": "/assets/branding/logo-slogan.png",
+  "default_meta_description": "Εταιρεία εμπορίας τροφίμων με επιλεγμένες πρώτες ύλες, συνέπεια στις παραδόσεις και εξατομικευμένη εξυπηρέτηση."
+}

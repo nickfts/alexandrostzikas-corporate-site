@@ -1,0 +1,18 @@
+---
+layout: layouts/base.njk
+permalink: /el/about/index.html
+navKey: about
+eleventyComputed:
+  pageTitle: "{{ siteData.pages.about.seo_title or (siteData.settings.company_name + ' | Σχετικά') }}"
+  pageDescription: "{{ siteData.pages.about.seo_description or siteData.settings.default_meta_description or meta.defaultDescription }}"
+  pageImage: "{{ siteData.pages.about.og_image or siteData.settings.og_image or meta.defaultImage }}"
+---
+<section class="section section-page-head">
+  <div class="container narrow">
+    <p class="eyebrow">Η Επιχείρηση</p>
+    <h1>{{ siteData.pages.about.title }}</h1>
+    <div class="rich-text">
+      {{ siteData.pages.about.body | markdown | safe }}
+    </div>
+  </div>
+</section>

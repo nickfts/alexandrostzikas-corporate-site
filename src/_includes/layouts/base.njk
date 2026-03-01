@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="el">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% if pageTitle %}{{ pageTitle }}{% else %}{{ siteData.settings.company_name }}{% endif %}</title>
+    <meta
+      name="description"
+      content="{% if pageDescription %}{{ pageDescription }}{% elseif siteData.settings.default_meta_description %}{{ siteData.settings.default_meta_description }}{% else %}{{ meta.defaultDescription }}{% endif %}"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="{{ meta.locale }}" />
+    <meta property="og:title" content="{% if pageTitle %}{{ pageTitle }}{% else %}{{ siteData.settings.company_name }}{% endif %}" />
+    <meta
+      property="og:description"
+      content="{% if pageDescription %}{{ pageDescription }}{% elseif siteData.settings.default_meta_description %}{{ siteData.settings.default_meta_description }}{% else %}{{ meta.defaultDescription }}{% endif %}"
+    />
+    <meta
+      property="og:image"
+      content="{% if pageImage %}{{ pageImage }}{% elseif siteData.settings.og_image %}{{ siteData.settings.og_image }}{% else %}{{ meta.defaultImage }}{% endif %}"
+    />
+    <meta property="og:url" content="{{ meta.siteUrl }}{{ page.url }}" />
+    <link rel="canonical" href="{{ meta.siteUrl }}{{ page.url }}" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="preload" href="/assets/css/styles.css" as="style" />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+    <script defer src="/assets/js/site.js"></script>
+    {% if page.url == '/el/leaflets/' %}
+    <script defer src="/assets/js/leaflets-viewer.js"></script>
+    {% endif %}
+    {% set orgSchema = {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": siteData.settings.company_name,
+      "url": meta.siteUrl,
+      "logo": meta.siteUrl + (siteData.settings.logo_path or '/assets/branding/logo.png'),
+      "email": siteData.settings.email,
+      "telephone": siteData.settings.primary_phone,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": siteData.settings.address
+      }
+    } %}
+    <script type="application/ld+json">{{ orgSchema | json | safe }}</script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Μετάβαση στο περιεχόμενο</a>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand-link" href="/el/" aria-label="Αρχική">
+            <img
+            src="{% if siteData.settings.logo_path %}{{ siteData.settings.logo_path }}{% else %}/assets/branding/logo.png{% endif %}"
+            alt="{{ siteData.settings.company_name }}"
+            class="brand-logo"
+            width="180"
+            height="56"
+            loading="eager"
+          />
+        </a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">
+          <span class="menu-toggle-line"></span>
+          <span class="menu-toggle-line"></span>
+          <span class="menu-toggle-line"></span>
+          <span class="sr-only">Άνοιγμα μενού</span>
+        </button>
+        <nav id="main-nav" class="main-nav" aria-label="Κύρια πλοήγηση">
+          <ul class="nav-list">
+            <li><a href="/el/" {% if navKey == 'home' %}aria-current="page"{% endif %}>Αρχική</a></li>
+            <li><a href="/el/about/" {% if navKey == 'about' %}aria-current="page"{% endif %}>Σχετικά</a></li>
+            <li class="nav-has-dropdown">
+              <button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-controls="products-dropdown">
+                Κατηγορίες Προϊόντων
+              </button>
+              <div id="products-dropdown" class="nav-dropdown" hidden>
+                {% if siteData.navCategories.length %}
+                <ul>
+                  {% for category in siteData.navCategories %}
+                  <li class="dropdown-category">
+                    <a href="/el/products/{{ category.slug }}/">{{ category.menu_title }}</a>
+                    {% if category.subcategories.length %}
+                    <ul>
+                      {% for subcategory in category.subcategories %}
+                      <li>
+                        <a href="/el/products/{{ category.slug }}/{{ subcategory.slug }}/">{{ subcategory.title }}</a>
+                      </li>
+                      {% endfor %}
+                    </ul>
+                    {% else %}
+                    <p class="dropdown-empty">Δεν υπάρχουν ακόμη υποκατηγορίες.</p>
+                    {% endif %}
+                  </li>
+                  {% endfor %}
+                </ul>
+                {% else %}
+                <p class="dropdown-empty">Δεν υπάρχουν ακόμη κατηγορίες.</p>
+                {% endif %}
+              </div>
+            </li>
+            <li><a href="/el/leaflets/" {% if navKey == 'leaflets' %}aria-current="page"{% endif %}>Φυλλάδια</a></li>
+            <li><a href="/el/contact/" {% if navKey == 'contact' %}aria-current="page"{% endif %}>Επικοινωνία</a></li>
+            <li class="lang-item">
+              <div class="lang-switch" aria-label="Επιλογή γλώσσας">
+                <a href="/el/" class="lang-link is-active" aria-current="true">EL</a>
+                <a href="/en/" class="lang-link">EN</a>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content">
+      {{ content | safe }}
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <section>
+          <h2>Η Εταιρεία</h2>
+          <p>{{ siteData.settings.company_name }}</p>
+          <p>{{ siteData.settings.address }}</p>
+          <p>{{ siteData.settings.primary_phone }}</p>
+          {% if siteData.settings.enable_second_phone and siteData.settings.second_phone %}
+          <p>{{ siteData.settings.second_phone }}</p>
+          {% endif %}
+          <p>
+            <a href="mailto:{{ siteData.settings.email }}">{{ siteData.settings.email }}</a>
+          </p>
+        </section>
+        <section>
+          <h2>Γρήγοροι Σύνδεσμοι</h2>
+          <ul class="footer-links">
+            <li><a href="/el/about/">Σχετικά</a></li>
+            <li><a href="/el/products/">Προϊόντα</a></li>
+            <li><a href="/el/leaflets/">Φυλλάδια</a></li>
+            <li><a href="/el/contact/">Επικοινωνία</a></li>
+            <li><a href="/el/privacy/">Πολιτική Απορρήτου</a></li>
+            <li><a href="/el/cookies/">Πολιτική Cookies</a></li>
+          </ul>
+        </section>
+        <section>
+          <h2>Social</h2>
+          <ul class="footer-links">
+            <li><a href="{{ siteData.settings.social_facebook or '#' }}" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+            <li><a href="{{ siteData.settings.social_instagram or '#' }}" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+            <li><a href="{{ siteData.settings.social_linkedin or '#' }}" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          </ul>
+        </section>
+      </div>
+      <div class="container footer-legal">
+        <small>&copy; {{ meta.currentYear }} {{ siteData.settings.company_name }}. Με επιφύλαξη παντός δικαιώματος.</small>
+      </div>
+    </footer>
+  </body>
+</html>
