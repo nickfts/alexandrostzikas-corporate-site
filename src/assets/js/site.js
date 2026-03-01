@@ -75,6 +75,12 @@
   const revealElements = Array.from(document.querySelectorAll(".reveal-on-view"));
   if (!revealElements.length) return;
 
+  // Trigger hero reveal immediately so slogan animation starts without observer jitter on load.
+  const heroReveal = document.querySelector(".hero.reveal-on-view");
+  if (heroReveal) {
+    heroReveal.classList.add("is-visible");
+  }
+
   if (prefersReducedMotion || !("IntersectionObserver" in window)) {
     revealElements.forEach((element) => element.classList.add("is-visible"));
     return;
