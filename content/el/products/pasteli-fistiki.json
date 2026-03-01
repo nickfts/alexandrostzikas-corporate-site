@@ -1,0 +1,10 @@
+{
+  "title": "Παστέλι Φιστίκι",
+  "slug": "pasteli-fistiki",
+  "category": "xeiropoihto-pasteli",
+  "description": "Παστέλι με φιστίκι, με γεμάτο αρωματικό προφίλ και ιδιαίτερο χαρακτήρα.",
+  "packaging": "Κατόπιν επικοινωνίας",
+  "image": "/assets/uploads/products/pasteli/pasteli-fistiki.jpg",
+  "order": 3,
+  "is_visible": true
+}

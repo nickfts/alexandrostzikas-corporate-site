@@ -20,14 +20,14 @@ eleventyComputed:
     <div class="contact-grid">
       <article class="contact-card">
         <h2>Τηλέφωνο</h2>
-        <p><a href="tel:{{ siteData.settings.primary_phone | replace(' ', '') }}">{{ siteData.settings.primary_phone }}</a></p>
+        <p><a href="{{ siteData.settings.primary_phone_href or ('tel:' + (siteData.settings.primary_phone | replace(' ', ''))) }}">{{ siteData.settings.primary_phone }}</a></p>
         {% if siteData.settings.enable_second_phone and siteData.settings.second_phone %}
-        <p><a href="tel:{{ siteData.settings.second_phone | replace(' ', '') }}">{{ siteData.settings.second_phone }}</a></p>
+        <p><a href="{{ siteData.settings.second_phone_href or ('tel:' + (siteData.settings.second_phone | replace(' ', ''))) }}">{{ siteData.settings.second_phone }}</a></p>
         {% endif %}
       </article>
       <article class="contact-card">
         <h2>Email</h2>
-        <p><a href="mailto:{{ siteData.settings.email }}">{{ siteData.settings.email }}</a></p>
+        <p><a href="{{ siteData.settings.email_href or ('mailto:' + siteData.settings.email) }}">{{ siteData.settings.email }}</a></p>
       </article>
       <article class="contact-card">
         <h2>Διεύθυνση</h2>
@@ -59,7 +59,7 @@ eleventyComputed:
       ></iframe>
     </div>
     <p class="map-action">
-      <a class="btn btn-solid" href="{{ siteData.settings.google_maps_url or 'https://maps.google.com/' }}" target="_blank" rel="noopener noreferrer">
+      <a class="btn btn-solid" href="{{ siteData.settings.google_maps_action_url or siteData.settings.google_maps_url or 'https://maps.google.com/' }}" target="_blank" rel="noopener noreferrer">
         Δείτε μας στο Google Maps
       </a>
     </p>

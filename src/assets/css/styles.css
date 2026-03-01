@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap");
+
 @font-face {
   font-family: "Aka Acid Dosis";
   src: url("/assets/fonts/AkaAcidDosis-ExtraLight.otf") format("opentype");
@@ -81,8 +83,8 @@
   --shadow-sm: 0 10px 22px -18px rgba(38, 30, 24, 0.6);
   --shadow-md: 0 22px 40px -28px rgba(34, 26, 21, 0.58);
   --font-heading: "Aka Acid Dosis", "Segoe UI", sans-serif;
-  --font-body: "Aka Acid Dosis", "Segoe UI", sans-serif;
-  --font-slogan: "AC Fifindrel Unicode", "Aka Acid Dosis", "Segoe UI", sans-serif;
+  --font-body: "Manrope", "Segoe UI", sans-serif;
+  --font-slogan: "AC Fifindrel Unicode", "Aka Acid Dosis", "Manrope", "Segoe UI", sans-serif;
 }
 
 *,
@@ -274,13 +276,23 @@ p {
 .nav-dropdown-toggle {
   display: inline-flex;
   width: fit-content;
+  font-family: var(--font-body);
   font-size: 0.98rem;
   font-weight: 600;
   color: #2f2722;
+  text-decoration: underline;
+  text-decoration-color: rgba(99, 86, 77, 0.45);
+  text-decoration-thickness: 0.07em;
+  text-underline-offset: 0.2em;
   background: transparent;
   border: 0;
   padding: 0.5rem 0.35rem;
   cursor: pointer;
+}
+
+.nav-dropdown-toggle:hover,
+.nav-dropdown-toggle:focus-visible {
+  text-decoration-color: var(--color-primary-strong);
 }
 
 .lang-item {
@@ -299,6 +311,7 @@ p {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  font-family: var(--font-body);
   min-width: 2.1rem;
   padding: 0.34rem 0.56rem;
   font-size: 0.78rem;
@@ -370,16 +383,24 @@ p {
 
 .hero h1 {
   max-width: 16ch;
+  margin-top: 1.08rem;
   margin-bottom: 0.8rem;
   color: #fff;
-  font-size: clamp(1.9rem, 6vw, 3.45rem);
+  font-size: clamp(3.76rem, 11.52vw, 7.28rem);
 }
 
 .hero-slogan {
+  display: inline-block;
   font-family: var(--font-slogan);
   font-weight: 400;
   letter-spacing: 0.004em;
-  line-height: 1.1;
+  word-spacing: 0;
+  line-height: 0.84;
+  padding-top: 0.02em;
+  padding-bottom: 0.06em;
+  padding-inline-start: 2.4ch;
+  text-indent: -2.4ch;
+  white-space: pre-line;
   text-wrap: balance;
   text-shadow: 0 9px 24px rgba(17, 12, 9, 0.28);
   will-change: transform, opacity, filter, clip-path;
@@ -387,7 +408,7 @@ p {
 
 .motion-ready .hero-slogan {
   opacity: 0;
-  clip-path: inset(0 100% 0 0);
+  clip-path: inset(-16% 100% -16% 0);
   filter: blur(4px);
   transform: translate3d(-1.7rem, 0.45rem, 0) scale(0.99);
 }
@@ -400,10 +421,10 @@ p {
 
 @keyframes slogan-wipe {
   from {
-    clip-path: inset(0 100% 0 0);
+    clip-path: inset(-16% 100% -16% 0);
   }
   to {
-    clip-path: inset(0 0 0 0);
+    clip-path: inset(-16% 0 -16% 0);
   }
 }
 

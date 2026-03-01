@@ -70,7 +70,7 @@
         <nav id="main-nav" class="main-nav" aria-label="Κύρια πλοήγηση">
           <ul class="nav-list">
             <li><a href="/el/" {% if navKey == 'home' %}aria-current="page"{% endif %}>Αρχική</a></li>
-            <li><a href="/el/about/" {% if navKey == 'about' %}aria-current="page"{% endif %}>Σχετικά</a></li>
+            <li><a href="/el/about/" {% if navKey == 'about' %}aria-current="page"{% endif %}>Η Επιχείρηση</a></li>
             <li class="nav-has-dropdown">
               <button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-controls="products-dropdown">
                 Κατηγορίες Προϊόντων
@@ -121,18 +121,18 @@
           <h2>Η Εταιρεία</h2>
           <p>{{ siteData.settings.company_name }}</p>
           <p>{{ siteData.settings.address }}</p>
-          <p>{{ siteData.settings.primary_phone }}</p>
+          <p><a href="{{ siteData.settings.primary_phone_href or ('tel:' + (siteData.settings.primary_phone | replace(' ', ''))) }}">{{ siteData.settings.primary_phone }}</a></p>
           {% if siteData.settings.enable_second_phone and siteData.settings.second_phone %}
-          <p>{{ siteData.settings.second_phone }}</p>
+          <p><a href="{{ siteData.settings.second_phone_href or ('tel:' + (siteData.settings.second_phone | replace(' ', ''))) }}">{{ siteData.settings.second_phone }}</a></p>
           {% endif %}
           <p>
-            <a href="mailto:{{ siteData.settings.email }}">{{ siteData.settings.email }}</a>
+            <a href="{{ siteData.settings.email_href or ('mailto:' + siteData.settings.email) }}">{{ siteData.settings.email }}</a>
           </p>
         </section>
         <section>
           <h2>Γρήγοροι Σύνδεσμοι</h2>
           <ul class="footer-links">
-            <li><a href="/el/about/">Σχετικά</a></li>
+            <li><a href="/el/about/">Η Επιχείρηση</a></li>
             <li><a href="/el/products/">Προϊόντα</a></li>
             <li><a href="/el/leaflets/">Φυλλάδια</a></li>
             <li><a href="/el/contact/">Επικοινωνία</a></li>

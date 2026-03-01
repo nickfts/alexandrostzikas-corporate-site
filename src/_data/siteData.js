@@ -97,6 +97,7 @@ function extractCoordinatesFromGoogleUrl(url) {
   const patterns = [
     /@(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/,
     /!3d(-?\d+(?:\.\d+)?)!4d(-?\d+(?:\.\d+)?)/,
+    /!2d(-?\d+(?:\.\d+)?)!3d(-?\d+(?:\.\d+)?)/,
     /q=(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/,
     /ll=(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/
   ];
@@ -104,6 +105,10 @@ function extractCoordinatesFromGoogleUrl(url) {
   for (const pattern of patterns) {
     const match = url.match(pattern);
     if (match?.[1] && match?.[2]) {
+      // Pattern !2d{lng}!3d{lat} needs reversal.
+      if (pattern.source.startsWith("!2d")) {
+        return `${match[2]},${match[1]}`;
+      }
       return `${match[1]},${match[2]}`;
     }
   }
@@ -111,10 +116,45 @@ function extractCoordinatesFromGoogleUrl(url) {
   return "";
 }
 
+function extractUrlFromRawMapValue(rawValue) {
+  const candidate = safeText(rawValue).trim();
+  if (!candidate) return "";
+
+  if (candidate.startsWith("<")) {
+    const srcMatch = candidate.match(/src\s*=\s*["']([^"']+)["']/i);
+    if (srcMatch?.[1]) {
+      return srcMatch[1].trim();
+    }
+
+    const hrefMatch = candidate.match(/https?:\/\/[^\s"'<>]+/i);
+    if (hrefMatch?.[0]) {
+      return hrefMatch[0].trim();
+    }
+  }
+
+  return candidate;
+}
+
+function isGenericGoogleMapsRoot(urlValue) {
+  try {
+    const parsed = new URL(urlValue);
+    const host = parsed.hostname.toLowerCase();
+    if (!(host.includes("google.") && host.includes("maps"))) {
+      return false;
+    }
+
+    const path = parsed.pathname.replace(/\/+$/, "");
+    const hasQuery = [...parsed.searchParams.keys()].length > 0;
+    return (path === "" || path === "/" || path === "/maps") && !hasQuery;
+  } catch {
+    return false;
+  }
+}
+
 function normalizeMapEmbedUrl(rawMapEmbedUrl, rawGoogleMapsUrl) {
   const fallback = "https://www.google.com/maps?q=40.266012,22.453522&output=embed";
-  const embedCandidate = safeText(rawMapEmbedUrl).trim();
-  const mapsCandidate = safeText(rawGoogleMapsUrl).trim();
+  const embedCandidate = extractUrlFromRawMapValue(rawMapEmbedUrl);
+  const mapsCandidate = extractUrlFromRawMapValue(rawGoogleMapsUrl);
   const candidate = embedCandidate || mapsCandidate || fallback;
 
   try {
@@ -153,14 +193,80 @@ function normalizeMapEmbedUrl(rawMapEmbedUrl, rawGoogleMapsUrl) {
   }
 }
 
+function normalizeGoogleMapsActionUrl(rawGoogleMapsUrl, rawMapEmbedUrl, rawAddress) {
+  const defaultLatLng = "40.266012,22.453522";
+  const mapsCandidate = extractUrlFromRawMapValue(rawGoogleMapsUrl);
+  const embedCandidate = extractUrlFromRawMapValue(rawMapEmbedUrl);
+  const preferred = mapsCandidate && !isGenericGoogleMapsRoot(mapsCandidate) ? mapsCandidate : embedCandidate;
+  const fallbackAddress = safeText(rawAddress).trim();
+
+  const makeSearchUrl = (query) =>
+    `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+
+  if (!preferred) {
+    return makeSearchUrl(fallbackAddress || defaultLatLng);
+  }
+
+  try {
+    const url = new URL(preferred);
+    const coordinates = extractCoordinatesFromGoogleUrl(preferred);
+    if (coordinates) {
+      return makeSearchUrl(coordinates);
+    }
+
+    const q = url.searchParams.get("q");
+    if (q) {
+      return makeSearchUrl(q);
+    }
+
+    const host = url.hostname.toLowerCase();
+    const isGoogleMaps =
+      host.includes("google.") && (host.includes("maps") || url.pathname.includes("/maps"));
+    if (!isGoogleMaps) {
+      return preferred;
+    }
+
+    if (!isGenericGoogleMapsRoot(preferred)) {
+      return preferred;
+    }
+
+    return makeSearchUrl(fallbackAddress || defaultLatLng);
+  } catch {
+    return makeSearchUrl(fallbackAddress || defaultLatLng);
+  }
+}
+
+function toPhoneHref(rawPhone) {
+  const phone = safeText(rawPhone).trim();
+  if (!phone) return "";
+  const compact = phone.replace(/[^+\d]/g, "");
+  if (!compact) return "";
+  return `tel:${compact}`;
+}
+
+function toMailHref(rawEmail) {
+  const email = safeText(rawEmail).trim();
+  if (!email) return "";
+  return `mailto:${email}`;
+}
+
 module.exports = () => {
   const root = process.cwd();
   const localeRoot = path.join(root, "content", "el");
 
   const settingsRaw = readJson(path.join(localeRoot, "site_settings.json"), {});
+  const normalizedEmbedUrl = normalizeMapEmbedUrl(settingsRaw.map_embed_url, settingsRaw.google_maps_url);
   const settings = {
     ...settingsRaw,
-    map_embed_url: normalizeMapEmbedUrl(settingsRaw.map_embed_url, settingsRaw.google_maps_url)
+    map_embed_url: normalizedEmbedUrl,
+    google_maps_action_url: normalizeGoogleMapsActionUrl(
+      settingsRaw.google_maps_url,
+      settingsRaw.map_embed_url,
+      settingsRaw.address
+    ),
+    primary_phone_href: toPhoneHref(settingsRaw.primary_phone),
+    second_phone_href: toPhoneHref(settingsRaw.second_phone),
+    email_href: toMailHref(settingsRaw.email)
   };
 
   const pages = readJsonFolder(path.join(localeRoot, "pages")).reduce((acc, item) => {
