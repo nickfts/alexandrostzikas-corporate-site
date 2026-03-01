@@ -1,11 +1,11 @@
 {
-  "title": "Σκληρό Τυρί Παλαίωσης",
-  "slug": "skliro-tyri-palata",
-  "category": "tyrokomika",
-  "subcategory": "sklira-tyria",
-  "description": "Σκληρό τυρί με αρωματικό χαρακτήρα και ισορροπημένη επίγευση για τρίψιμο ή πλατό.",
   "packaging": "1 x 6kg",
-  "image": "/assets/uploads/images/prod-skliro-palaiosis.svg",
+  "slug": "skliro-tyri-palata",
   "order": 3,
-  "is_visible": true
+  "title": "Σκληρό Τυρί Παλαίωσης",
+  "image": "/assets/uploads/images/prod-skliro-palaiosis.svg",
+  "description": "Σκληρό τυρί με αρωματικό χαρακτήρα και ισορροπημένη επίγευση για τρίψιμο ή πλατό.",
+  "is_visible": true,
+  "category": "zymika-delicatessen",
+  "subcategory": "sklira-tyria"
 }
