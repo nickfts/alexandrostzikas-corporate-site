@@ -1,5 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Montserrat:wght@500;600;700&family=Spectral:wght@500;600;700&display=swap");
 
+@font-face {
+  font-family: "AC Fifindrel Unicode";
+  src:
+    url("/assets/fonts/AC-Fifindrel_Unicode.otf") format("opentype"),
+    url("/assets/fonts/AC-Fifindrel_Unicode.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --color-bg: #f3f2f0;
   --color-surface: #ffffff;
@@ -18,7 +28,7 @@
   --shadow-md: 0 22px 40px -28px rgba(34, 26, 21, 0.58);
   --font-heading: "Spectral", "Georgia", serif;
   --font-body: "Manrope", "Segoe UI", sans-serif;
-  --font-slogan: "Montserrat", "Manrope", "Segoe UI", sans-serif;
+  --font-slogan: "AC Fifindrel Unicode", "Montserrat", "Manrope", "Segoe UI", sans-serif;
 }
 
 *,
@@ -311,9 +321,9 @@ p {
 
 .hero-slogan {
   font-family: var(--font-slogan);
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  line-height: 1.08;
+  font-weight: 400;
+  letter-spacing: 0.004em;
+  line-height: 1.1;
   text-wrap: balance;
   text-shadow: 0 9px 24px rgba(17, 12, 9, 0.28);
   will-change: transform, opacity, filter, clip-path;
