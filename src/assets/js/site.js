@@ -7,6 +7,11 @@
   ];
   const isAdminPath = window.location.pathname.startsWith("/admin");
   const hasIdentityTokenInHash = authHashKeys.some((key) => window.location.hash.includes(`${key}=`));
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!prefersReducedMotion) {
+    document.documentElement.classList.add("motion-ready");
+  }
 
   // Identity links may land on public pages. Force redirect to /admin so Decap/Identity can process the token.
   if (!isAdminPath && hasIdentityTokenInHash) {
@@ -18,7 +23,6 @@
   const mainNav = document.querySelector(".main-nav");
   const dropdownToggle = document.querySelector(".nav-dropdown-toggle");
   const dropdown = document.getElementById("products-dropdown");
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   if (menuToggle && mainNav) {
     menuToggle.addEventListener("click", () => {
