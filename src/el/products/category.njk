@@ -21,11 +21,11 @@ eleventyComputed:
   </div>
 </section>
 
+{% set subcategories = siteData.subcategoriesByCategory[category.slug] %}
+{% if subcategories and subcategories.length %}
 <section class="section section-tight">
   <div class="container">
     <h2>Υποκατηγορίες</h2>
-    {% set subcategories = siteData.subcategoriesByCategory[category.slug] %}
-    {% if subcategories and subcategories.length %}
     <div class="subcategory-list">
       {% for subcategory in subcategories %}
       <article class="subcategory-item">
@@ -36,11 +36,9 @@ eleventyComputed:
       </article>
       {% endfor %}
     </div>
-    {% else %}
-    <p class="state-message">Δεν υπάρχουν ακόμη υποκατηγορίες σε αυτή την κατηγορία.</p>
-    {% endif %}
   </div>
 </section>
+{% endif %}
 
 <section class="section">
   <div class="container">

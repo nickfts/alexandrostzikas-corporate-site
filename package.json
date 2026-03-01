@@ -5,7 +5,7 @@
   "description": "Production-ready static corporate website for food trading business with Decap CMS.",
   "scripts": {
     "clean": "npx rimraf dist",
-    "build": "npx @11ty/eleventy",
+    "build": "npx rimraf dist && npx @11ty/eleventy",
     "serve": "npx @11ty/eleventy --serve --watch"
   },
   "devDependencies": {
