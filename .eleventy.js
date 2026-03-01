@@ -1,4 +1,5 @@
 const markdownIt = require("markdown-it");
+const fs = require("fs");
 
 module.exports = function (eleventyConfig) {
   const md = markdownIt({
@@ -32,6 +33,9 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
   eleventyConfig.addPassthroughCopy({ assets: "assets" });
+  if (fs.existsSync(".generated")) {
+    eleventyConfig.addPassthroughCopy({ ".generated": "assets/generated" });
+  }
   eleventyConfig.addPassthroughCopy("admin");
   eleventyConfig.addPassthroughCopy({ "src/robots.txt": "robots.txt" });
   eleventyConfig.addPassthroughCopy({ "src/favicon.svg": "favicon.svg" });

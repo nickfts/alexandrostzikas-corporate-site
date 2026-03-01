@@ -37,7 +37,7 @@ collections:
           - { label: "Ενεργοποίηση Ωραρίου", name: "enable_hours", widget: "boolean", default: false, hint: "Από προεπιλογή παραμένει κρυφό." }
           - { label: "Κείμενο Ωραρίου", name: "business_hours", widget: "string", required: false }
           - { label: "Google Maps Link", name: "google_maps_url", widget: "string", required: false }
-          - { label: "Google Map Embed URL", name: "map_embed_url", widget: "string", required: false }
+          - { label: "Google Map Embed URL", name: "map_embed_url", widget: "string", required: false, hint: "Μπορείς να βάλεις και κανονικό Google Maps link. Το site το μετατρέπει αυτόματα σε embed." }
           - { label: "Facebook", name: "social_facebook", widget: "string", required: false }
           - { label: "Instagram", name: "social_instagram", widget: "string", required: false }
           - { label: "LinkedIn", name: "social_linkedin", widget: "string", required: false }
@@ -237,8 +237,8 @@ collections:
         pattern: ["^[a-z0-9-]*$", "Χρησιμοποίησε μόνο λατινικά, αριθμούς και παύλες."]
       - { label: "Κατηγορία (προαιρετική σημείωση)", name: "category", widget: "string", required: false }
       - { label: "Περιγραφή", name: "description", widget: "text", required: false }
-      - { label: "Thumbnail", name: "thumbnail", widget: "image", hint: "Μέγιστο προτεινόμενο μέγεθος: 2MB." }
-      - { label: "Αρχείο Φυλλαδίου (PDF ή εικόνα)", name: "file", widget: "file", hint: "Για PDF προτείνεται μέγιστο 20MB." }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", media_folder: "assets/uploads/images", public_folder: "/assets/uploads/images", hint: "Μέγιστο προτεινόμενο μέγεθος: 2MB." }
+      - { label: "Αρχείο Φυλλαδίου (PDF ή εικόνα)", name: "file", widget: "file", media_folder: "assets/uploads/leaflets", public_folder: "/assets/uploads/leaflets", hint: "Για PDF προτείνεται μέγιστο 20MB. Προτίμησε όνομα αρχείου με λατινικούς χαρακτήρες (a-z, 0-9, -)." }
       - { label: "Το αρχείο είναι PDF;", name: "is_pdf", widget: "boolean", default: true }
       - { label: "Σειρά Εμφάνισης", name: "order", widget: "number", default: 100, value_type: "int", min: 1 }
       - { label: "Εμφάνιση στο site", name: "is_visible", widget: "boolean", default: true }

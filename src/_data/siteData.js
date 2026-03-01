@@ -47,11 +47,122 @@ function sortByOrderThenTitle(items) {
   });
 }
 
+function ensureDir(dirPath) {
+  if (!fs.existsSync(dirPath)) {
+    fs.mkdirSync(dirPath, { recursive: true });
+  }
+}
+
+function toAbsoluteAssetPath(root, publicPath) {
+  if (!publicPath || typeof publicPath !== "string" || !publicPath.startsWith("/")) {
+    return "";
+  }
+  return path.join(root, publicPath.replace(/^\/+/, "").replace(/\//g, path.sep));
+}
+
+function normalizeMediaPath(root, publicPath, fallbackSlug = "asset") {
+  const candidate = safeText(publicPath).trim();
+  if (!candidate) return "";
+
+  const baseName = path.posix.basename(candidate);
+  const isDotfile = baseName.startsWith(".") && baseName.length > 1;
+  if (!isDotfile) {
+    return candidate;
+  }
+
+  const sourceAbsolute = toAbsoluteAssetPath(root, candidate);
+  if (!sourceAbsolute || !fs.existsSync(sourceAbsolute)) {
+    return candidate;
+  }
+
+  const sourceBaseName = path.basename(sourceAbsolute);
+  let ext = path.extname(sourceAbsolute);
+  if (!ext && sourceBaseName.startsWith(".") && sourceBaseName.length > 1) {
+    ext = sourceBaseName;
+  }
+  const stats = fs.statSync(sourceAbsolute);
+  const slugBase = normalizeSlug(fallbackSlug) || "asset";
+  const fingerprint = `${stats.size}-${Math.floor(stats.mtimeMs)}`;
+  const outputFileName = `${slugBase}-${fingerprint}${ext.toLowerCase()}`;
+  const generatedDir = path.join(root, ".generated", "upload-fixes");
+  const generatedFile = path.join(generatedDir, outputFileName);
+
+  ensureDir(generatedDir);
+  fs.copyFileSync(sourceAbsolute, generatedFile);
+
+  return `/assets/generated/upload-fixes/${outputFileName}`;
+}
+
+function extractCoordinatesFromGoogleUrl(url) {
+  const patterns = [
+    /@(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/,
+    /!3d(-?\d+(?:\.\d+)?)!4d(-?\d+(?:\.\d+)?)/,
+    /q=(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/,
+    /ll=(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/
+  ];
+
+  for (const pattern of patterns) {
+    const match = url.match(pattern);
+    if (match?.[1] && match?.[2]) {
+      return `${match[1]},${match[2]}`;
+    }
+  }
+
+  return "";
+}
+
+function normalizeMapEmbedUrl(rawMapEmbedUrl, rawGoogleMapsUrl) {
+  const fallback = "https://www.google.com/maps?q=40.266012,22.453522&output=embed";
+  const embedCandidate = safeText(rawMapEmbedUrl).trim();
+  const mapsCandidate = safeText(rawGoogleMapsUrl).trim();
+  const candidate = embedCandidate || mapsCandidate || fallback;
+
+  try {
+    const url = new URL(candidate);
+    const host = url.hostname.toLowerCase();
+    const isGoogleMaps =
+      host.includes("google.") && (host.includes("maps") || url.pathname.includes("/maps"));
+
+    if (!isGoogleMaps) {
+      return candidate;
+    }
+
+    if (url.pathname.includes("/maps/embed") || url.searchParams.has("output")) {
+      return candidate;
+    }
+
+    const coordinates = extractCoordinatesFromGoogleUrl(candidate);
+    if (coordinates) {
+      return `https://www.google.com/maps?q=${encodeURIComponent(coordinates)}&output=embed`;
+    }
+
+    const q = url.searchParams.get("q");
+    if (q) {
+      return `https://www.google.com/maps?q=${encodeURIComponent(q)}&output=embed`;
+    }
+
+    const placeMatch = url.pathname.match(/\/place\/([^/]+)/);
+    if (placeMatch?.[1]) {
+      const placeLabel = decodeURIComponent(placeMatch[1]).replace(/\+/g, " ");
+      return `https://www.google.com/maps?q=${encodeURIComponent(placeLabel)}&output=embed`;
+    }
+
+    return `https://www.google.com/maps?q=${encodeURIComponent(candidate)}&output=embed`;
+  } catch {
+    return fallback;
+  }
+}
+
 module.exports = () => {
   const root = process.cwd();
   const localeRoot = path.join(root, "content", "el");
 
-  const settings = readJson(path.join(localeRoot, "site_settings.json"), {});
+  const settingsRaw = readJson(path.join(localeRoot, "site_settings.json"), {});
+  const settings = {
+    ...settingsRaw,
+    map_embed_url: normalizeMapEmbedUrl(settingsRaw.map_embed_url, settingsRaw.google_maps_url)
+  };
+
   const pages = readJsonFolder(path.join(localeRoot, "pages")).reduce((acc, item) => {
     const key = path.basename(item._source, ".json");
     acc[key] = { ...item };
@@ -61,11 +172,15 @@ module.exports = () => {
 
   const categories = sortByOrderThenTitle(
     readJsonFolder(path.join(localeRoot, "categories")).map((item) => ({
-      title: safeText(item.title, "Κατηγορία"),
+      title: safeText(item.title, "Category"),
       slug: normalizeSlug(item.slug),
       intro: safeText(item.intro),
-      card_image: safeText(item.card_image),
-      banner_image: safeText(item.banner_image),
+      card_image: normalizeMediaPath(root, safeText(item.card_image), `${item.slug || item.title}-card`),
+      banner_image: normalizeMediaPath(
+        root,
+        safeText(item.banner_image),
+        `${item.slug || item.title}-banner`
+      ),
       order: asNumber(item.order),
       menu_title: safeText(item.menu_title || item.title),
       meta_description: safeText(item.meta_description),
@@ -75,11 +190,15 @@ module.exports = () => {
 
   const subcategories = sortByOrderThenTitle(
     readJsonFolder(path.join(localeRoot, "subcategories")).map((item) => ({
-      title: safeText(item.title, "Υποκατηγορία"),
+      title: safeText(item.title, "Subcategory"),
       slug: normalizeSlug(item.slug),
       category: normalizeSlug(item.category),
       intro: safeText(item.intro),
-      banner_image: safeText(item.banner_image),
+      banner_image: normalizeMediaPath(
+        root,
+        safeText(item.banner_image),
+        `${item.slug || item.title}-banner`
+      ),
       order: asNumber(item.order),
       meta_description: safeText(item.meta_description),
       is_visible: item.is_visible !== false
@@ -88,13 +207,13 @@ module.exports = () => {
 
   const products = sortByOrderThenTitle(
     readJsonFolder(path.join(localeRoot, "products")).map((item) => ({
-      title: safeText(item.title, "Προϊόν"),
+      title: safeText(item.title, "Product"),
       slug: normalizeSlug(item.slug || item.title),
       category: normalizeSlug(item.category),
       subcategory: normalizeSlug(item.subcategory),
       description: safeText(item.description),
       packaging: safeText(item.packaging),
-      image: safeText(item.image),
+      image: normalizeMediaPath(root, safeText(item.image), `${item.slug || item.title}-image`),
       order: asNumber(item.order),
       is_visible: item.is_visible !== false
     }))
@@ -102,12 +221,12 @@ module.exports = () => {
 
   const leaflets = sortByOrderThenTitle(
     readJsonFolder(path.join(localeRoot, "leaflets")).map((item) => ({
-      title: safeText(item.title, "Φυλλάδιο"),
+      title: safeText(item.title, "Leaflet"),
       slug: normalizeSlug(item.slug || item.title),
       category: normalizeSlug(item.category),
       description: safeText(item.description),
-      thumbnail: safeText(item.thumbnail),
-      file: safeText(item.file),
+      thumbnail: normalizeMediaPath(root, safeText(item.thumbnail), `${item.slug || item.title}-thumb`),
+      file: normalizeMediaPath(root, safeText(item.file), `${item.slug || item.title}-file`),
       is_pdf: item.is_pdf !== false,
       order: asNumber(item.order),
       is_visible: item.is_visible !== false
