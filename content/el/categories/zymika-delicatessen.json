@@ -1,11 +1,11 @@
 {
+  "meta_description": "Ζύμες και delicatessen επιλογές με πρακτική εφαρμογή και premium προφίλ.",
+  "banner_image": "/assets/uploads/images/cat-zymi.svg",
+  "slug": "zymika-delicatessen",
+  "intro": "Η κατηγορία ζυμών και delicatessen συνδυάζει ευκολία εφαρμογής με προσεγμένη πρώτη ύλη, προσφέροντας λύσεις για δημιουργικά μενού και σταθερή παραγωγή.\n\nΠροϊόντα έτοιμα για άμεση αξιοποίηση ή προσαρμογή, με στόχο την ταχύτητα στην εκτέλεση χωρίς παραχώρηση στη γεύση.",
+  "card_image": "/assets/uploads/images/cat-zymi.svg",
+  "order": 3,
   "title": "Ζύμες και Delicatessen",
   "menu_title": "Ζύμες & Delicatessen",
-  "slug": "zymika-delicatessen",
-  "intro": "Η κατηγορία ζυμών και delicatessen συνδυάζει ευκολία εφαρμογής με προσεγμένη πρώτη ύλη, προσφέροντας λύσεις για δημιουργικά μενού και σταθερή παραγωγή.\\n\\nΠροϊόντα έτοιμα για άμεση αξιοποίηση ή προσαρμογή, με στόχο την ταχύτητα στην εκτέλεση χωρίς παραχώρηση στη γεύση.",
-  "card_image": "/assets/uploads/images/cat-zymi.svg",
-  "banner_image": "/assets/uploads/images/cat-zymi.svg",
-  "meta_description": "Ζύμες και delicatessen επιλογές με πρακτική εφαρμογή και premium προφίλ.",
-  "order": 3,
   "is_visible": true
 }
