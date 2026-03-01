@@ -1,4 +1,58 @@
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Montserrat:wght@500;600;700&family=Spectral:wght@500;600;700&display=swap");
+@font-face {
+  font-family: "Aka Acid Dosis";
+  src: url("/assets/fonts/AkaAcidDosis-ExtraLight.otf") format("opentype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Aka Acid Dosis";
+  src: url("/assets/fonts/AkaAcidDosis-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Aka Acid Dosis";
+  src: url("/assets/fonts/AkaAcidDosis-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Aka Acid Dosis";
+  src: url("/assets/fonts/AkaAcidDosis-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Aka Acid Dosis";
+  src: url("/assets/fonts/AkaAcidDosis-SemiBold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Aka Acid Dosis";
+  src: url("/assets/fonts/AkaAcidDosis-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Aka Acid Dosis";
+  src: url("/assets/fonts/AkaAcidDosis-ExtraBold.otf") format("opentype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
 
 @font-face {
   font-family: "AC Fifindrel Unicode";
@@ -26,9 +80,9 @@
   --radius-lg: 1.1rem;
   --shadow-sm: 0 10px 22px -18px rgba(38, 30, 24, 0.6);
   --shadow-md: 0 22px 40px -28px rgba(34, 26, 21, 0.58);
-  --font-heading: "Spectral", "Georgia", serif;
-  --font-body: "Manrope", "Segoe UI", sans-serif;
-  --font-slogan: "AC Fifindrel Unicode", "Montserrat", "Manrope", "Segoe UI", sans-serif;
+  --font-heading: "Aka Acid Dosis", "Segoe UI", sans-serif;
+  --font-body: "Aka Acid Dosis", "Segoe UI", sans-serif;
+  --font-slogan: "AC Fifindrel Unicode", "Aka Acid Dosis", "Segoe UI", sans-serif;
 }
 
 *,
@@ -78,6 +132,8 @@ h4 {
   margin-top: 0;
   color: #2a211c;
   font-family: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: 0.01em;
   line-height: 1.2;
 }
 
