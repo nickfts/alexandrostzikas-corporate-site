@@ -1,4 +1,19 @@
 (function () {
+  const authHashKeys = [
+    "recovery_token",
+    "invite_token",
+    "confirmation_token",
+    "email_change_token"
+  ];
+  const isAdminPath = window.location.pathname.startsWith("/admin");
+  const hasIdentityTokenInHash = authHashKeys.some((key) => window.location.hash.includes(`${key}=`));
+
+  // Identity links may land on public pages. Force redirect to /admin so Decap/Identity can process the token.
+  if (!isAdminPath && hasIdentityTokenInHash) {
+    window.location.replace(`/admin/${window.location.hash}`);
+    return;
+  }
+
   const menuToggle = document.querySelector(".menu-toggle");
   const mainNav = document.querySelector(".main-nav");
   const dropdownToggle = document.querySelector(".nav-dropdown-toggle");
