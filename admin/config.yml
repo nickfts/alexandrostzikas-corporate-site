@@ -40,7 +40,7 @@ collections:
           - { label: "Google Map Embed URL", name: "map_embed_url", widget: "string", required: false, hint: "Μπορείς να βάλεις και κανονικό Google Maps link. Το site το μετατρέπει αυτόματα σε embed." }
           - { label: "Facebook", name: "social_facebook", widget: "string", required: false }
           - { label: "Instagram", name: "social_instagram", widget: "string", required: false }
-          - { label: "LinkedIn", name: "social_linkedin", widget: "string", required: false }
+          - { label: "TikTok", name: "social_tiktok", widget: "string", required: false }
           - { label: "Λογότυπο", name: "logo_path", widget: "image", required: false, hint: "Μέγιστο προτεινόμενο μέγεθος: 2MB." }
           - { label: "Λογότυπο με Σλόγκαν", name: "logo_slogan_path", widget: "image", required: false, hint: "Μέγιστο προτεινόμενο μέγεθος: 2MB." }
           - { label: "OpenGraph Εικόνα", name: "og_image", widget: "image", required: false, hint: "Μέγιστο προτεινόμενο μέγεθος: 2MB." }

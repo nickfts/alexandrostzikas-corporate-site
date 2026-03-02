@@ -45,12 +45,27 @@
     return Math.min(3, Math.max(0.6, value));
   }
 
+  function getViewerInnerWidth() {
+    const horizontalPadding = 24;
+    return Math.max(220, viewerContent.clientWidth - horizontalPadding);
+  }
+
+  function renderImageZoom() {
+    if (!imageEl.naturalWidth) return;
+
+    const fitWidth = Math.min(imageEl.naturalWidth, getViewerInnerWidth());
+    const zoomedWidth = Math.max(160, Math.floor(fitWidth * zoom));
+    imageEl.style.maxWidth = "none";
+    imageEl.style.width = `${zoomedWidth}px`;
+    imageEl.style.height = "auto";
+  }
+
   function adjustZoom(step) {
     zoom = clampZoom(zoom + step);
     if (activeType === "pdf") {
       renderPdfPage();
     } else if (activeType === "image") {
-      imageEl.style.transform = `scale(${zoom})`;
+      renderImageZoom();
     }
   }
 
@@ -85,7 +100,9 @@
     renderToken += 1;
     canvas.hidden = true;
     imageEl.hidden = true;
-    imageEl.style.transform = "scale(1)";
+    imageEl.style.width = "";
+    imageEl.style.height = "";
+    imageEl.style.maxWidth = "";
     imageEl.removeAttribute("src");
     hideViewerMessage();
     updateControls();
@@ -97,13 +114,17 @@
     const page = await pdfDocument.getPage(currentPage);
     if (localToken !== renderToken) return;
 
-    const viewport = page.getViewport({ scale: zoom });
+    const baseViewport = page.getViewport({ scale: 1 });
+    const fitScale = getViewerInnerWidth() / baseViewport.width;
+    const effectiveScale = Math.max(0.2, fitScale * zoom);
+    const viewport = page.getViewport({ scale: effectiveScale });
     const scale = window.devicePixelRatio || 1;
     const context = canvas.getContext("2d");
     canvas.width = Math.floor(viewport.width * scale);
     canvas.height = Math.floor(viewport.height * scale);
+    canvas.style.maxWidth = "none";
     canvas.style.width = `${Math.floor(viewport.width)}px`;
-    canvas.style.height = `${Math.floor(viewport.height)}px`;
+    canvas.style.height = "auto";
     context.setTransform(scale, 0, 0, scale, 0, 0);
 
     await page.render({ canvasContext: context, viewport }).promise;
@@ -135,6 +156,7 @@
       hideViewerMessage();
       imageEl.hidden = false;
       canvas.hidden = true;
+      renderImageZoom();
       updateControls();
     };
     imageEl.onerror = () => {
@@ -206,6 +228,15 @@
     },
     { passive: false }
   );
+
+  window.addEventListener("resize", () => {
+    if (modal.hidden || !activeType) return;
+    if (activeType === "pdf") {
+      renderPdfPage();
+    } else if (activeType === "image") {
+      renderImageZoom();
+    }
+  });
 
   document.addEventListener("keydown", (event) => {
     if (modal.hidden) return;

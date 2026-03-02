@@ -3,8 +3,8 @@
   "slug": "xeiropoihto-pasteli",
   "menu_title": "Χειροποίητο Παστέλι",
   "intro": "Το χειροποίητο παστέλι είναι μια διαχρονική ελληνική γεύση που συνδυάζει θρεπτική αξία και φυσική γλυκύτητα.\n\nΜε παραδοσιακές τεχνικές και ισορροπημένη υφή, κάθε εκδοχή αναδεικνύει καθαρά το άρωμα των υλικών.\n\nΑποτελεί σταθερή επιλογή για λιανική, delicatessen και σημεία που ζητούν αυθεντικά προϊόντα ημέρας.\n\nΜια κατηγορία με ταυτότητα, ποιότητα και εμπορική αξιοπιστία.",
-  "card_image": "/assets/uploads/products/pasteli/pasteli-sousami.jpg",
-  "banner_image": "/assets/uploads/products/pasteli/pasteli-fistiki.jpg",
+  "card_image": "/assets/uploads/categories/category-pasteli.jpg",
+  "banner_image": "/assets/uploads/categories/category-pasteli.jpg",
   "meta_description": "Χειροποίητα παστέλια με αυθεντικό χαρακτήρα και ισορροπημένη γεύση για λιανική και επαγγελματική διάθεση.",
   "order": 2,
   "is_visible": true

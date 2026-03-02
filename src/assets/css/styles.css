@@ -210,7 +210,7 @@ p {
 }
 
 .brand-logo {
-  height: 48px;
+  height: 72px;
   width: auto;
 }
 
@@ -365,6 +365,46 @@ p {
   margin: 0.5rem 0 0;
   color: var(--color-muted);
   font-size: 0.9rem;
+}
+
+.home-brand-ribbon {
+  background: linear-gradient(122deg, rgba(99, 86, 77, 0.94), rgba(76, 64, 56, 0.95));
+  color: #fff;
+  perspective: 900px;
+  overflow: hidden;
+}
+
+.home-brand-ribbon p {
+  margin: 0;
+  padding-block: 0.4rem;
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: clamp(0.72rem, 2.2vw, 0.92rem);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  transform-origin: center center;
+  filter: none;
+  will-change: transform, opacity, filter;
+}
+
+.motion-ready .home-brand-ribbon p {
+  animation: ribbon-depth-reveal 2300ms cubic-bezier(0.22, 1, 0.36, 1) 40ms both;
+}
+
+@keyframes ribbon-depth-reveal {
+  from {
+    opacity: 0.3;
+    transform: translate3d(0, 0.28rem, 0) scale(0.93);
+    filter: blur(1.2px);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
 }
 
 .hero {
@@ -714,12 +754,17 @@ p {
 .leaflet-modal-content canvas,
 .leaflet-modal-content img {
   max-width: 100%;
+  height: auto;
   background: #fff;
   box-shadow: var(--shadow-md);
 }
 
 .leaflet-modal-content img {
   transform-origin: center center;
+}
+
+.leaflet-modal-content canvas {
+  max-width: none;
 }
 
 .site-footer {

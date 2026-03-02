@@ -21,7 +21,9 @@
     />
     <meta property="og:url" content="{{ meta.siteUrl }}{{ page.url }}" />
     <link rel="canonical" href="{{ meta.siteUrl }}{{ page.url }}" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/assets/icons/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="preload" href="/assets/css/styles.css" as="style" />
     <link rel="preload" href="/assets/fonts/AkaAcidDosis-Regular.otf" as="font" type="font/otf" crossorigin />
@@ -118,7 +120,7 @@
     <footer class="site-footer">
       <div class="container footer-grid">
         <section>
-          <h2>Η Εταιρεία</h2>
+          <h2>Η Επιχείρηση</h2>
           <p>{{ siteData.settings.company_name }}</p>
           <p>{{ siteData.settings.address }}</p>
           <p><a href="{{ siteData.settings.primary_phone_href or ('tel:' + (siteData.settings.primary_phone | replace(' ', ''))) }}">{{ siteData.settings.primary_phone }}</a></p>
@@ -145,7 +147,7 @@
           <ul class="footer-links">
             <li><a href="{{ siteData.settings.social_facebook or '#' }}" target="_blank" rel="noopener noreferrer">Facebook</a></li>
             <li><a href="{{ siteData.settings.social_instagram or '#' }}" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-            <li><a href="{{ siteData.settings.social_linkedin or '#' }}" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+            <li><a href="{{ siteData.settings.social_tiktok or siteData.settings.social_linkedin or '#' }}" target="_blank" rel="noopener noreferrer">TikTok</a></li>
           </ul>
         </section>
       </div>
