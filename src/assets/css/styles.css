@@ -763,6 +763,29 @@ p {
   transform: translateY(0);
 }
 
+@media (max-width: 699px) {
+  .hero {
+    /* Mobile-first hero framing: less empty space above slogan on first view */
+    min-height: clamp(50vh, 60vh, 68vh);
+    align-items: center;
+    padding-top: 1.1rem;
+    padding-bottom: 1.35rem;
+    background-position: center 42%;
+  }
+
+  .hero-content {
+    transform: translateY(-1.2rem);
+  }
+
+  .hero h1 {
+    margin-top: 0.35rem;
+  }
+
+  .hero-text {
+    font-size: clamp(0.94rem, 4.4vw, 1.15rem);
+  }
+}
+
 @media (min-width: 700px) {
   .card-grid-categories,
   .card-grid-leaflets {
