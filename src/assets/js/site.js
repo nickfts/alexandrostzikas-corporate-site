@@ -72,6 +72,117 @@
     });
   }
 
+  function trackEvent(eventName, params = {}) {
+    if (typeof window.gtag !== "function") return;
+
+    window.gtag("event", eventName, {
+      page_path: window.location.pathname,
+      ...params
+    });
+  }
+
+  document.addEventListener("click", (event) => {
+    const clickable = event.target.closest("a, button");
+    if (!clickable) return;
+
+    const explicitEvent = clickable.dataset.trackEvent;
+    const explicitLabel = clickable.dataset.trackLabel || "";
+    const href = clickable.getAttribute("href") || "";
+
+    if (explicitEvent) {
+      trackEvent(explicitEvent, {
+        event_label: explicitLabel || clickable.textContent.trim().slice(0, 120),
+        link_url: href
+      });
+      return;
+    }
+
+    if (clickable.tagName !== "A" || !href) return;
+
+    if (href.startsWith("tel:")) {
+      trackEvent("contact_phone_click", { event_label: href.replace("tel:", "") });
+      return;
+    }
+
+    if (href.startsWith("mailto:")) {
+      trackEvent("contact_email_click", { event_label: href.replace("mailto:", "") });
+      return;
+    }
+
+    if (clickable.hasAttribute("download")) {
+      trackEvent("file_download_click", {
+        event_label: clickable.textContent.trim().slice(0, 120),
+        link_url: href
+      });
+      return;
+    }
+
+    if (clickable.target === "_blank") {
+      trackEvent("outbound_link_click", {
+        event_label: clickable.textContent.trim().slice(0, 120),
+        link_url: href
+      });
+    }
+  });
+
+  const contactForm = document.querySelector("[data-remote-contact-form]");
+  if (contactForm) {
+    const statusEl = contactForm.querySelector("[data-form-status]");
+    const submitBtn = contactForm.querySelector("button[type='submit']");
+
+    function setFormStatus(message, isError = false) {
+      if (!statusEl) return;
+      statusEl.hidden = false;
+      statusEl.textContent = message;
+      statusEl.classList.toggle("is-error", isError);
+      statusEl.classList.toggle("is-success", !isError);
+    }
+
+    contactForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const endpoint = contactForm.getAttribute("action") || "";
+      const honeypot = contactForm.querySelector("input[name='_gotcha']");
+
+      if (!endpoint.trim()) {
+        setFormStatus("Η φόρμα δεν είναι διαθέσιμη αυτή τη στιγμή.", true);
+        return;
+      }
+
+      if (honeypot && honeypot.value.trim()) {
+        // Silent drop for spam bots.
+        return;
+      }
+
+      const formData = new FormData(contactForm);
+      if (submitBtn) submitBtn.disabled = true;
+      setFormStatus("Αποστολή...", false);
+
+      try {
+        const response = await fetch(endpoint, {
+          method: "POST",
+          body: formData,
+          headers: {
+            Accept: "application/json"
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error("FORM_SUBMIT_FAILED");
+        }
+
+        contactForm.reset();
+        setFormStatus("Το μήνυμά σας στάλθηκε επιτυχώς.", false);
+        trackEvent("contact_form_submit_success");
+      } catch (error) {
+        setFormStatus("Δεν ήταν δυνατή η αποστολή. Προσπαθήστε ξανά σε λίγο.", true);
+        trackEvent("contact_form_submit_error");
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+      }
+    });
+  }
+
   const revealElements = Array.from(document.querySelectorAll(".reveal-on-view"));
   if (!revealElements.length) return;
 

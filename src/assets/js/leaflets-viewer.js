@@ -171,6 +171,7 @@
     activeFile = file;
     titleEl.textContent = title || "Προβολή φυλλαδίου";
     downloadLink.href = file;
+    downloadLink.dataset.trackLabel = title || "";
     modal.hidden = false;
     document.body.style.overflow = "hidden";
     clearView();

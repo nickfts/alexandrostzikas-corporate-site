@@ -22,7 +22,7 @@ eleventyComputed:
     <div class="card-grid card-grid-leaflets">
       {% for leaflet in visibleLeaflets %}
       <article class="card card-leaflet">
-        <img src="{{ leaflet.thumbnail or '/assets/branding/logo-slogan.png' }}" alt="{{ leaflet.title }}" loading="lazy" />
+        <img src="{{ leaflet.thumbnail or '/assets/branding/logo-slogan.png' }}" alt="{{ leaflet.title }}" loading="lazy" decoding="async" />
         <div class="card-body">
           <h2>{{ leaflet.title }}</h2>
           <p>{{ leaflet.description }}</p>
@@ -33,10 +33,12 @@ eleventyComputed:
               data-file="{{ leaflet.file }}"
               data-title="{{ leaflet.title }}"
               data-type="{% if leaflet.is_pdf %}pdf{% else %}image{% endif %}"
+              data-track-event="leaflet_preview_click"
+              data-track-label="{{ leaflet.title }}"
             >
               Προβολή
             </button>
-            <a class="btn btn-solid" href="{{ leaflet.file }}" target="_blank" rel="noopener noreferrer" download>
+            <a class="btn btn-solid" href="{{ leaflet.file }}" target="_blank" rel="noopener noreferrer" download data-track-event="leaflet_download_click" data-track-label="{{ leaflet.title }}">
               Λήψη
             </a>
           </div>
@@ -63,11 +65,11 @@ eleventyComputed:
       <button type="button" class="icon-btn" data-next-page disabled>›</button>
       <button type="button" class="icon-btn" data-zoom-out aria-label="Σμίκρυνση">−</button>
       <button type="button" class="icon-btn" data-zoom-in aria-label="Μεγέθυνση">＋</button>
-      <a class="btn btn-solid" data-download-leaflet target="_blank" rel="noopener noreferrer" download>Λήψη</a>
+      <a class="btn btn-solid" data-download-leaflet target="_blank" rel="noopener noreferrer" download data-track-event="leaflet_download_click">Λήψη</a>
     </div>
     <div class="leaflet-modal-content" data-viewer-content>
       <canvas data-pdf-canvas hidden></canvas>
-      <img data-image-viewer alt="" hidden />
+      <img data-image-viewer alt="" decoding="async" hidden />
       <p class="state-message" data-viewer-message hidden>Δεν ήταν δυνατή η φόρτωση του αρχείου.</p>
     </div>
   </div>

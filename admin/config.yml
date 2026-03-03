@@ -34,6 +34,11 @@ collections:
           - { label: "Email", name: "email", widget: "string" }
           - { label: "Website URL", name: "website_url", widget: "string", required: false }
           - { label: "Website Label", name: "website_label", widget: "string", required: false }
+          - { label: "Ενεργοποίηση Φόρμας Επικοινωνίας", name: "enable_contact_form", widget: "boolean", default: false, hint: "Ενεργοποιεί τη φόρμα στη σελίδα Επικοινωνία." }
+          - { label: "Contact Form Endpoint URL", name: "contact_form_endpoint", widget: "string", required: false, hint: "Endpoint από δωρεάν υπηρεσία φόρμας (π.χ. Formspree)." }
+          - { label: "Ενεργοποίηση Analytics (GA4)", name: "enable_analytics", widget: "boolean", default: false, hint: "Όταν είναι ενεργό και υπάρχει Measurement ID, θα στέλνονται ανώνυμα events επισκεψιμότητας." }
+          - { label: "GA4 Measurement ID", name: "ga4_measurement_id", widget: "string", required: false, hint: "Παράδειγμα: G-XXXXXXXXXX" }
+          - { label: "Google Site Verification", name: "google_site_verification", widget: "string", required: false, hint: "Το content value από το meta tag επαλήθευσης Search Console." }
           - { label: "Ενεργοποίηση Ωραρίου", name: "enable_hours", widget: "boolean", default: false, hint: "Από προεπιλογή παραμένει κρυφό." }
           - { label: "Κείμενο Ωραρίου", name: "business_hours", widget: "string", required: false }
           - { label: "Google Maps Link", name: "google_maps_url", widget: "string", required: false }

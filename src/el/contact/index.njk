@@ -20,14 +20,14 @@ eleventyComputed:
     <div class="contact-grid">
       <article class="contact-card">
         <h2>Τηλέφωνο</h2>
-        <p><a href="{{ siteData.settings.primary_phone_href or ('tel:' + (siteData.settings.primary_phone | replace(' ', ''))) }}">{{ siteData.settings.primary_phone }}</a></p>
+        <p><a href="{{ siteData.settings.primary_phone_href or ('tel:' + (siteData.settings.primary_phone | replace(' ', ''))) }}" data-track-event="contact_phone_click" data-track-label="primary_phone">{{ siteData.settings.primary_phone }}</a></p>
         {% if siteData.settings.enable_second_phone and siteData.settings.second_phone %}
-        <p><a href="{{ siteData.settings.second_phone_href or ('tel:' + (siteData.settings.second_phone | replace(' ', ''))) }}">{{ siteData.settings.second_phone }}</a></p>
+        <p><a href="{{ siteData.settings.second_phone_href or ('tel:' + (siteData.settings.second_phone | replace(' ', ''))) }}" data-track-event="contact_phone_click" data-track-label="second_phone">{{ siteData.settings.second_phone }}</a></p>
         {% endif %}
       </article>
       <article class="contact-card">
         <h2>Email</h2>
-        <p><a href="{{ siteData.settings.email_href or ('mailto:' + siteData.settings.email) }}">{{ siteData.settings.email }}</a></p>
+        <p><a href="{{ siteData.settings.email_href or ('mailto:' + siteData.settings.email) }}" data-track-event="contact_email_click">{{ siteData.settings.email }}</a></p>
       </article>
       <article class="contact-card">
         <h2>Διεύθυνση</h2>
@@ -35,7 +35,7 @@ eleventyComputed:
       </article>
       <article class="contact-card">
         <h2>Website</h2>
-        <p><a href="{{ siteData.settings.website_url or '#' }}" target="_blank" rel="noopener noreferrer">{{ siteData.settings.website_label or siteData.settings.website_url or 'example.com' }}</a></p>
+        <p><a href="{{ siteData.settings.website_url or '#' }}" target="_blank" rel="noopener noreferrer" data-track-event="website_click">{{ siteData.settings.website_label or siteData.settings.website_url or 'example.com' }}</a></p>
       </article>
       {% if siteData.settings.enable_hours and siteData.settings.business_hours %}
       <article class="contact-card">
@@ -59,9 +59,55 @@ eleventyComputed:
       ></iframe>
     </div>
     <p class="map-action">
-      <a class="btn btn-solid" href="{{ siteData.settings.google_maps_action_url or siteData.settings.google_maps_url or 'https://maps.google.com/' }}" target="_blank" rel="noopener noreferrer">
+      <a class="btn btn-solid" href="{{ siteData.settings.google_maps_action_url or siteData.settings.google_maps_url or 'https://maps.google.com/' }}" target="_blank" rel="noopener noreferrer" data-track-event="google_maps_click">
         Δείτε μας στο Google Maps
       </a>
     </p>
   </div>
 </section>
+
+{% if siteData.settings.enable_contact_form and siteData.settings.contact_form_endpoint %}
+<section class="section section-tight">
+  <div class="container">
+    <article class="contact-card">
+      <h2>Φόρμα Επικοινωνίας</h2>
+      <p>Στείλτε μας το μήνυμά σας και θα επικοινωνήσουμε μαζί σας το συντομότερο δυνατό.</p>
+      <form
+        class="contact-form"
+        method="post"
+        action="{{ siteData.settings.contact_form_endpoint }}"
+        data-remote-contact-form
+      >
+        <input type="hidden" name="_subject" value="Νέο μήνυμα από τη φόρμα επικοινωνίας" />
+        <p class="contact-form-honeypot" aria-hidden="true">
+          <label>Μην το συμπληρώσετε <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" /></label>
+        </p>
+        <div class="contact-form-grid">
+          <label>
+            Ονοματεπώνυμο
+            <input type="text" name="name" required />
+          </label>
+          <label>
+            Email
+            <input type="email" name="email" required />
+          </label>
+          <label>
+            Τηλέφωνο
+            <input type="text" name="phone" />
+          </label>
+          <label>
+            Θέμα
+            <input type="text" name="subject" />
+          </label>
+        </div>
+        <label>
+          Μήνυμα
+          <textarea name="message" rows="5" required></textarea>
+        </label>
+        <button type="submit" class="btn btn-solid" data-track-event="contact_form_submit_click">Αποστολή</button>
+        <p class="form-status" data-form-status hidden></p>
+      </form>
+    </article>
+  </div>
+</section>
+{% endif %}

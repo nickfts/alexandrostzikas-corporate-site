@@ -41,6 +41,7 @@ eleventyComputed:
             src="{% if category.card_image %}{{ category.card_image }}{% elseif category.banner_image %}{{ category.banner_image }}{% else %}/assets/branding/logo-slogan.png{% endif %}"
             alt="{{ category.title }}"
             loading="lazy"
+            decoding="async"
           />
         </a>
         <div class="card-body">

@@ -5,12 +5,14 @@
   "description": "Production-ready static corporate website for food trading business with Decap CMS.",
   "scripts": {
     "clean": "npx rimraf dist",
+    "optimize:images": "node scripts/optimize-images.mjs",
     "build": "npx rimraf dist && npx @11ty/eleventy",
     "serve": "npx @11ty/eleventy --serve --watch"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.2",
     "markdown-it": "^14.1.0",
-    "rimraf": "^6.0.1"
+    "rimraf": "^6.0.1",
+    "sharp": "^0.34.4"
   }
 }

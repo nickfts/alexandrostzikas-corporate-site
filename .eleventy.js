@@ -37,7 +37,6 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy({ ".generated": "assets/generated" });
   }
   eleventyConfig.addPassthroughCopy("admin");
-  eleventyConfig.addPassthroughCopy({ "src/robots.txt": "robots.txt" });
   eleventyConfig.addPassthroughCopy({ "src/favicon.svg": "favicon.svg" });
   eleventyConfig.addPassthroughCopy({ "src/site.webmanifest": "site.webmanifest" });
 

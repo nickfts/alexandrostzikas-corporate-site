@@ -8,6 +8,12 @@
       name="description"
       content="{% if pageDescription %}{{ pageDescription }}{% elseif siteData.settings.default_meta_description %}{{ siteData.settings.default_meta_description }}{% else %}{{ meta.defaultDescription }}{% endif %}"
     />
+    {% if siteData.settings.google_site_verification %}
+    <meta name="google-site-verification" content="{{ siteData.settings.google_site_verification }}" />
+    {% endif %}
+    {% if noindex %}
+    <meta name="robots" content="noindex, nofollow" />
+    {% endif %}
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="{{ meta.locale }}" />
     <meta property="og:title" content="{% if pageTitle %}{{ pageTitle }}{% else %}{{ siteData.settings.company_name }}{% endif %}" />
@@ -30,6 +36,16 @@
     <link rel="preload" href="/assets/fonts/AkaAcidDosis-SemiBold.otf" as="font" type="font/otf" crossorigin />
     <link rel="preload" href="/assets/fonts/AC-Fifindrel_Unicode.otf" as="font" type="font/otf" crossorigin />
     <link rel="stylesheet" href="/assets/css/styles.css" />
+    {% set gaMeasurementId = (siteData.settings.ga4_measurement_id or '') | trim %}
+    {% if siteData.settings.enable_analytics and gaMeasurementId %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ gaMeasurementId }}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '{{ gaMeasurementId }}', { anonymize_ip: true });
+    </script>
+    {% endif %}
     <script defer src="/assets/js/site.js"></script>
     {% if page.url == '/el/leaflets/' %}
     <script defer src="/assets/js/leaflets-viewer.js"></script>
@@ -61,6 +77,8 @@
             width="180"
             height="56"
             loading="eager"
+            decoding="async"
+            fetchpriority="high"
           />
         </a>
         <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">

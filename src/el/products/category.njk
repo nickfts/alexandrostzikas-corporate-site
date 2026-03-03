@@ -48,7 +48,7 @@ eleventyComputed:
     <div class="card-grid card-grid-products">
       {% for product in categoryProducts %}
       <article class="card card-product">
-        <img src="{{ product.image or '/assets/branding/logo-slogan.png' }}" alt="{{ product.title }}" loading="lazy" />
+        <img src="{{ product.image or '/assets/branding/logo-slogan.png' }}" alt="{{ product.title }}" loading="lazy" decoding="async" />
         <div class="card-body">
           <h3>{{ product.title }}</h3>
           <p>{{ product.description }}</p>
