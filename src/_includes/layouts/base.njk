@@ -37,15 +37,9 @@
     <link rel="preload" href="/assets/fonts/AC-Fifindrel_Unicode.otf" as="font" type="font/otf" crossorigin />
     <link rel="stylesheet" href="/assets/css/styles.css" />
     {% set gaMeasurementId = (siteData.settings.ga4_measurement_id or '') | trim %}
-    {% if siteData.settings.enable_analytics and gaMeasurementId %}
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ gaMeasurementId }}"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', '{{ gaMeasurementId }}', { anonymize_ip: true });
-    </script>
-    {% endif %}
+    {% set analyticsEnabled = true if (siteData.settings.enable_analytics and gaMeasurementId) else false %}
+    {% set analyticsConfig = { "enabled": analyticsEnabled, "measurementId": gaMeasurementId } %}
+    <script>window.__SITE_ANALYTICS_CONFIG__ = {{ analyticsConfig | json | safe }};</script>
     <script defer src="/assets/js/site.js"></script>
     {% if page.url == '/el/leaflets/' %}
     <script defer src="/assets/js/leaflets-viewer.js"></script>
@@ -173,5 +167,21 @@
         <small>&copy; {{ meta.currentYear }} {{ siteData.settings.company_name }}. Με επιφύλαξη παντός δικαιώματος.</small>
       </div>
     </footer>
+
+    {% if analyticsEnabled %}
+    <section class="cookie-banner" data-cookie-banner hidden aria-label="Cookies consent">
+      <div class="cookie-banner-panel">
+        <p>
+          Χρησιμοποιούμε προαιρετικά cookies analytics για ανώνυμη μέτρηση επισκεψιμότητας.
+          Μπορείτε να επιλέξετε αποδοχή ή απόρριψη.
+          <a href="/el/cookies/">Πολιτική Cookies</a>
+        </p>
+        <div class="cookie-banner-actions">
+          <button type="button" class="btn btn-solid" data-cookie-accept>Αποδοχή</button>
+          <button type="button" class="btn btn-outline" data-cookie-reject>Απόρριψη</button>
+        </div>
+      </div>
+    </section>
+    {% endif %}
   </body>
 </html>

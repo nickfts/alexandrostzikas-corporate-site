@@ -835,6 +835,57 @@ p {
   max-width: none;
 }
 
+body.has-cookie-banner {
+  padding-bottom: 7.25rem;
+}
+
+.cookie-banner[hidden] {
+  display: none !important;
+}
+
+.cookie-banner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0.75rem;
+  z-index: 130;
+  padding-inline: 0.75rem;
+  pointer-events: none;
+}
+
+.cookie-banner-panel {
+  width: min(100%, 900px);
+  margin-inline: auto;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(213, 208, 204, 0.9);
+  background: linear-gradient(122deg, rgba(243, 242, 240, 0.98), rgba(235, 231, 226, 0.98));
+  box-shadow: var(--shadow-md);
+  display: grid;
+  gap: 0.7rem;
+  pointer-events: auto;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 220ms ease, transform 260ms ease;
+}
+
+.cookie-banner:not([hidden]) .cookie-banner-panel {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cookie-banner-panel p {
+  margin: 0;
+  font-size: 0.94rem;
+  color: var(--color-text);
+}
+
+.cookie-banner-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
 .site-footer {
   border-top: 1px solid var(--color-border);
   background: #e8e4df;
@@ -877,6 +928,10 @@ p {
 }
 
 @media (max-width: 699px) {
+  body.has-cookie-banner {
+    padding-bottom: 9.5rem;
+  }
+
   .hero {
     /* Mobile-first hero framing: less empty space above slogan on first view */
     min-height: clamp(50vh, 60vh, 68vh);
@@ -896,6 +951,15 @@ p {
 
   .hero-text {
     font-size: clamp(0.94rem, 4.4vw, 1.15rem);
+  }
+
+  .cookie-banner-panel {
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 0.82rem;
+  }
+
+  .cookie-banner-actions .btn {
+    width: 100%;
   }
 }
 

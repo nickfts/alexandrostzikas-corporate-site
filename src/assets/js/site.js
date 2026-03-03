@@ -9,6 +9,11 @@
   const hasIdentityTokenInHash = authHashKeys.some((key) => window.location.hash.includes(`${key}=`));
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const heroSlogan = document.querySelector(".hero-slogan");
+  const analyticsConfig = window.__SITE_ANALYTICS_CONFIG__ || {};
+  const analyticsMeasurementId = String(analyticsConfig.measurementId || "").trim();
+  const analyticsEnabled = Boolean(analyticsConfig.enabled && analyticsMeasurementId);
+  const consentStorageKey = "azt_cookie_consent";
+  const acceptedConsentTtlMs = 365 * 24 * 60 * 60 * 1000;
 
   if (!prefersReducedMotion && heroSlogan) {
     document.documentElement.classList.add("motion-ready");
@@ -70,6 +75,121 @@
     dropdown.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", closeDropdown);
     });
+  }
+
+  function loadAnalytics() {
+    if (!analyticsEnabled || window.__aztAnalyticsLoaded) return;
+
+    window.__aztAnalyticsLoaded = true;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag =
+      window.gtag ||
+      function gtag() {
+        window.dataLayer.push(arguments);
+      };
+
+    window.gtag("js", new Date());
+    window.gtag("config", analyticsMeasurementId, { anonymize_ip: true });
+
+    const script = document.createElement("script");
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(analyticsMeasurementId)}`;
+    script.setAttribute("data-consent-managed", "true");
+    document.head.appendChild(script);
+  }
+
+  function readStoredAcceptedConsent() {
+    try {
+      const raw = localStorage.getItem(consentStorageKey);
+      if (!raw) return false;
+      const parsed = JSON.parse(raw);
+      if (!parsed || parsed.status !== "accepted") return false;
+      if (typeof parsed.expiresAt !== "number") return false;
+      if (Date.now() > parsed.expiresAt) {
+        localStorage.removeItem(consentStorageKey);
+        return false;
+      }
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  function persistAcceptedConsent() {
+    try {
+      localStorage.setItem(
+        consentStorageKey,
+        JSON.stringify({
+          status: "accepted",
+          acceptedAt: Date.now(),
+          expiresAt: Date.now() + acceptedConsentTtlMs
+        })
+      );
+    } catch {
+      // Ignore storage failures and continue with in-memory consent for this session.
+    }
+  }
+
+  function clearAcceptedConsent() {
+    try {
+      localStorage.removeItem(consentStorageKey);
+    } catch {
+      // Ignore storage failures.
+    }
+  }
+
+  const cookieBanner = document.querySelector("[data-cookie-banner]");
+  const cookieAcceptBtn = document.querySelector("[data-cookie-accept]");
+  const cookieRejectBtn = document.querySelector("[data-cookie-reject]");
+  const cookiePreferenceButtons = Array.from(document.querySelectorAll("[data-cookie-preferences]"));
+
+  function showCookieBanner() {
+    if (!cookieBanner) return;
+    cookieBanner.hidden = false;
+    document.body.classList.add("has-cookie-banner");
+  }
+
+  function hideCookieBanner() {
+    if (!cookieBanner) return;
+    cookieBanner.hidden = true;
+    document.body.classList.remove("has-cookie-banner");
+  }
+
+  function openCookiePreferences(event) {
+    if (event) event.preventDefault();
+    showCookieBanner();
+    if (cookieAcceptBtn) cookieAcceptBtn.focus();
+  }
+
+  cookiePreferenceButtons.forEach((button) => {
+    button.addEventListener("click", openCookiePreferences);
+  });
+
+  if (analyticsEnabled) {
+    if (readStoredAcceptedConsent()) {
+      loadAnalytics();
+      hideCookieBanner();
+    } else {
+      showCookieBanner();
+    }
+
+    if (cookieAcceptBtn) {
+      cookieAcceptBtn.addEventListener("click", () => {
+        persistAcceptedConsent();
+        loadAnalytics();
+        trackEvent("cookie_consent_accept");
+        hideCookieBanner();
+      });
+    }
+
+    if (cookieRejectBtn) {
+      cookieRejectBtn.addEventListener("click", () => {
+        clearAcceptedConsent();
+        hideCookieBanner();
+      });
+    }
+  } else {
+    hideCookieBanner();
   }
 
   function trackEvent(eventName, params = {}) {
