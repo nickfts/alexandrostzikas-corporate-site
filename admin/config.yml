@@ -19,125 +19,136 @@ slug:
 
 collections:
   - name: "site_settings"
-    label: "Ρυθμίσεις Ιστότοπου"
+    label: "Ξ΅Ο…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ Ξ™ΟƒΟ„ΟΟ„ΞΏΟ€ΞΏΟ…"
     files:
       - file: "content/el/site_settings.json"
         name: "general"
-        label: "Στοιχεία Επιχείρησης"
+        label: "Ξ£Ο„ΞΏΞΉΟ‡ΞµΞ―Ξ± Ξ•Ο€ΞΉΟ‡ΞµΞ―ΟΞ·ΟƒΞ·Ο‚"
         format: "json"
         fields:
-          - { label: "Επωνυμία Επιχείρησης", name: "company_name", widget: "string" }
-          - { label: "Διεύθυνση", name: "address", widget: "string" }
-          - { label: "Κύριο Τηλέφωνο", name: "primary_phone", widget: "string" }
-          - { label: "Ενεργοποίηση 2ου Τηλεφώνου", name: "enable_second_phone", widget: "boolean", default: false, hint: "Αν απενεργοποιηθεί, το 2ο τηλέφωνο δεν εμφανίζεται καθόλου." }
-          - { label: "2ο Τηλέφωνο", name: "second_phone", widget: "string", required: false }
+          - { label: "Ξ•Ο€Ο‰Ξ½Ο…ΞΌΞ―Ξ± Ξ•Ο€ΞΉΟ‡ΞµΞ―ΟΞ·ΟƒΞ·Ο‚", name: "company_name", widget: "string" }
+          - { label: "Ξ”ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ·", name: "address", widget: "string" }
+          - { label: "ΞΟΟΞΉΞΏ Ξ¤Ξ·Ξ»Ξ­Ο†Ο‰Ξ½ΞΏ", name: "primary_phone", widget: "string" }
+          - { label: "Ξ•Ξ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· 2ΞΏΟ… Ξ¤Ξ·Ξ»ΞµΟ†ΟΞ½ΞΏΟ…", name: "enable_second_phone", widget: "boolean", default: false, hint: "Ξ‘Ξ½ Ξ±Ο€ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ·ΞΈΞµΞ―, Ο„ΞΏ 2ΞΏ Ο„Ξ·Ξ»Ξ­Ο†Ο‰Ξ½ΞΏ Ξ΄ΞµΞ½ ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞµΟ„Ξ±ΞΉ ΞΊΞ±ΞΈΟΞ»ΞΏΟ…." }
+          - { label: "2ΞΏ Ξ¤Ξ·Ξ»Ξ­Ο†Ο‰Ξ½ΞΏ", name: "second_phone", widget: "string", required: false }
           - { label: "Email", name: "email", widget: "string" }
           - { label: "Website URL", name: "website_url", widget: "string", required: false }
           - { label: "Website Label", name: "website_label", widget: "string", required: false }
-          - { label: "Ενεργοποίηση Φόρμας Επικοινωνίας", name: "enable_contact_form", widget: "boolean", default: false, hint: "Ενεργοποιεί τη φόρμα στη σελίδα Επικοινωνία." }
-          - { label: "Contact Form Endpoint URL", name: "contact_form_endpoint", widget: "string", required: false, hint: "Endpoint από δωρεάν υπηρεσία φόρμας (π.χ. Formspree)." }
-          - { label: "Ενεργοποίηση Analytics (GA4)", name: "enable_analytics", widget: "boolean", default: false, hint: "Όταν είναι ενεργό και υπάρχει Measurement ID, θα στέλνονται ανώνυμα events επισκεψιμότητας." }
-          - { label: "GA4 Measurement ID", name: "ga4_measurement_id", widget: "string", required: false, hint: "Παράδειγμα: G-XXXXXXXXXX" }
-          - { label: "Google Site Verification", name: "google_site_verification", widget: "string", required: false, hint: "Το content value από το meta tag επαλήθευσης Search Console." }
-          - { label: "Ενεργοποίηση Ωραρίου", name: "enable_hours", widget: "boolean", default: false, hint: "Από προεπιλογή παραμένει κρυφό." }
-          - { label: "Κείμενο Ωραρίου", name: "business_hours", widget: "string", required: false }
+          - { label: "Ξ•Ξ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· Ξ¦ΟΟΞΌΞ±Ο‚ Ξ•Ο€ΞΉΞΊΞΏΞΉΞ½Ο‰Ξ½Ξ―Ξ±Ο‚", name: "enable_contact_form", widget: "boolean", default: false, hint: "Ξ•Ξ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞµΞ― Ο„Ξ· Ο†ΟΟΞΌΞ± ΟƒΟ„Ξ· ΟƒΞµΞ»Ξ―Ξ΄Ξ± Ξ•Ο€ΞΉΞΊΞΏΞΉΞ½Ο‰Ξ½Ξ―Ξ±." }
+          - { label: "Contact Form Endpoint URL", name: "contact_form_endpoint", widget: "string", required: false, hint: "Endpoint Ξ±Ο€Ο Ξ΄Ο‰ΟΞµΞ¬Ξ½ Ο…Ο€Ξ·ΟΞµΟƒΞ―Ξ± Ο†ΟΟΞΌΞ±Ο‚ (Ο€.Ο‡. Formspree)." }
+          - { label: "Ξ•Ξ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· Analytics (GA4)", name: "enable_analytics", widget: "boolean", default: false, hint: "ΞΟ„Ξ±Ξ½ ΞµΞ―Ξ½Ξ±ΞΉ ΞµΞ½ΞµΟΞ³Ο ΞΊΞ±ΞΉ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ Measurement ID, ΞΈΞ± ΟƒΟ„Ξ­Ξ»Ξ½ΞΏΞ½Ο„Ξ±ΞΉ Ξ±Ξ½ΟΞ½Ο…ΞΌΞ± events ΞµΟ€ΞΉΟƒΞΊΞµΟΞΉΞΌΟΟ„Ξ·Ο„Ξ±Ο‚." }
+          - { label: "GA4 Measurement ID", name: "ga4_measurement_id", widget: "string", required: false, hint: "Ξ Ξ±ΟΞ¬Ξ΄ΞµΞΉΞ³ΞΌΞ±: G-XXXXXXXXXX" }
+          - { label: "Google Site Verification", name: "google_site_verification", widget: "string", required: false, hint: "Ξ¤ΞΏ content value Ξ±Ο€Ο Ο„ΞΏ meta tag ΞµΟ€Ξ±Ξ»Ξ®ΞΈΞµΟ…ΟƒΞ·Ο‚ Search Console." }
+          - { label: "Ξ•Ξ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· Ξ©ΟΞ±ΟΞ―ΞΏΟ…", name: "enable_hours", widget: "boolean", default: false, hint: "Ξ‘Ο€Ο Ο€ΟΞΏΞµΟ€ΞΉΞ»ΞΏΞ³Ξ® Ο€Ξ±ΟΞ±ΞΌΞ­Ξ½ΞµΞΉ ΞΊΟΟ…Ο†Ο." }
+          - { label: "ΞΞµΞ―ΞΌΞµΞ½ΞΏ Ξ©ΟΞ±ΟΞ―ΞΏΟ…", name: "business_hours", widget: "string", required: false }
           - { label: "Google Maps Link", name: "google_maps_url", widget: "string", required: false }
-          - { label: "Google Map Embed URL", name: "map_embed_url", widget: "string", required: false, hint: "Μπορείς να βάλεις και κανονικό Google Maps link. Το site το μετατρέπει αυτόματα σε embed." }
+          - { label: "Google Map Embed URL", name: "map_embed_url", widget: "string", required: false, hint: "ΞΟ€ΞΏΟΞµΞ―Ο‚ Ξ½Ξ± Ξ²Ξ¬Ξ»ΞµΞΉΟ‚ ΞΊΞ±ΞΉ ΞΊΞ±Ξ½ΞΏΞ½ΞΉΞΊΟ Google Maps link. Ξ¤ΞΏ site Ο„ΞΏ ΞΌΞµΟ„Ξ±Ο„ΟΞ­Ο€ΞµΞΉ Ξ±Ο…Ο„ΟΞΌΞ±Ο„Ξ± ΟƒΞµ embed." }
           - { label: "Facebook", name: "social_facebook", widget: "string", required: false }
           - { label: "Instagram", name: "social_instagram", widget: "string", required: false }
           - { label: "TikTok", name: "social_tiktok", widget: "string", required: false }
-          - { label: "Λογότυπο", name: "logo_path", widget: "image", required: false, hint: "Μέγιστο προτεινόμενο μέγεθος: 2MB." }
-          - { label: "Λογότυπο με Σλόγκαν", name: "logo_slogan_path", widget: "image", required: false, hint: "Μέγιστο προτεινόμενο μέγεθος: 2MB." }
-          - { label: "OpenGraph Εικόνα", name: "og_image", widget: "image", required: false, hint: "Μέγιστο προτεινόμενο μέγεθος: 2MB." }
+          - { label: "Ξ›ΞΏΞ³ΟΟ„Ο…Ο€ΞΏ", name: "logo_path", widget: "image", required: false, hint: "ΞΞ­Ξ³ΞΉΟƒΟ„ΞΏ Ο€ΟΞΏΟ„ΞµΞΉΞ½ΟΞΌΞµΞ½ΞΏ ΞΌΞ­Ξ³ΞµΞΈΞΏΟ‚: 2MB." }
+          - { label: "Ξ›ΞΏΞ³ΟΟ„Ο…Ο€ΞΏ ΞΌΞµ Ξ£Ξ»ΟΞ³ΞΊΞ±Ξ½", name: "logo_slogan_path", widget: "image", required: false, hint: "ΞΞ­Ξ³ΞΉΟƒΟ„ΞΏ Ο€ΟΞΏΟ„ΞµΞΉΞ½ΟΞΌΞµΞ½ΞΏ ΞΌΞ­Ξ³ΞµΞΈΞΏΟ‚: 2MB." }
+          - { label: "OpenGraph Ξ•ΞΉΞΊΟΞ½Ξ±", name: "og_image", widget: "image", required: false, hint: "ΞΞ­Ξ³ΞΉΟƒΟ„ΞΏ Ο€ΟΞΏΟ„ΞµΞΉΞ½ΟΞΌΞµΞ½ΞΏ ΞΌΞ­Ξ³ΞµΞΈΞΏΟ‚: 2MB." }
           - { label: "Default Meta Description", name: "default_meta_description", widget: "text", required: false }
 
   - name: "pages"
-    label: "Σελίδες"
+    label: "Ξ£ΞµΞ»Ξ―Ξ΄ΞµΟ‚"
     files:
       - file: "content/el/pages/home.json"
         name: "home"
-        label: "Αρχική"
+        label: "Ξ‘ΟΟ‡ΞΉΞΊΞ®"
         format: "json"
         fields:
           - { label: "Hero Eyebrow", name: "hero_eyebrow", widget: "string", required: false }
-          - { label: "Hero Τίτλος", name: "hero_title", widget: "string" }
-          - { label: "Hero Κείμενο", name: "hero_text", widget: "text" }
-          - { label: "Hero Εικόνα", name: "hero_image", widget: "image", required: false, hint: "Μέγιστο προτεινόμενο μέγεθος: 2MB." }
-          - { label: "Τίτλος Κατηγοριών", name: "categories_title", widget: "string", required: false }
-          - { label: "Κείμενο Κατηγοριών", name: "categories_text", widget: "text", required: false }
-          - { label: "CTA Τίτλος", name: "cta_title", widget: "string", required: false }
-          - { label: "CTA Κείμενο", name: "cta_text", widget: "text", required: false }
+          - { label: "Hero Ξ¤Ξ―Ο„Ξ»ΞΏΟ‚", name: "hero_title", widget: "string" }
+          - { label: "Hero ΞΞµΞ―ΞΌΞµΞ½ΞΏ", name: "hero_text", widget: "text" }
+          - { label: "Hero Ξ•ΞΉΞΊΟΞ½Ξ±", name: "hero_image", widget: "image", required: false, hint: "ΞΞ­Ξ³ΞΉΟƒΟ„ΞΏ Ο€ΟΞΏΟ„ΞµΞΉΞ½ΟΞΌΞµΞ½ΞΏ ΞΌΞ­Ξ³ΞµΞΈΞΏΟ‚: 2MB." }
+          - { label: "Ξ¤Ξ―Ο„Ξ»ΞΏΟ‚ ΞΞ±Ο„Ξ·Ξ³ΞΏΟΞΉΟΞ½", name: "categories_title", widget: "string", required: false }
+          - { label: "ΞΞµΞ―ΞΌΞµΞ½ΞΏ ΞΞ±Ο„Ξ·Ξ³ΞΏΟΞΉΟΞ½", name: "categories_text", widget: "text", required: false }
+          - { label: "Εμφάνιση Μπάνερ Αξιών", name: "values_banner_enabled", widget: "boolean", default: true, required: false }
+          - label: "Στοιχεία Μπάνερ Αξιών"
+            name: "values_banner_items"
+            widget: "list"
+            required: false
+            min: 3
+            max: 3
+            hint: "Τρία στοιχεία με εικονίδιο και λέξη."
+            fields:
+              - { label: "Κείμενο", name: "label", widget: "string" }
+              - { label: "Εικονίδιο", name: "icon", widget: "image", required: false, hint: "Προτεινόμενο μέγιστο: 2MB." }
+          - { label: "CTA Ξ¤Ξ―Ο„Ξ»ΞΏΟ‚", name: "cta_title", widget: "string", required: false }
+          - { label: "CTA ΞΞµΞ―ΞΌΞµΞ½ΞΏ", name: "cta_text", widget: "text", required: false }
           - { label: "SEO Title", name: "seo_title", widget: "string", required: false }
           - { label: "SEO Description", name: "seo_description", widget: "text", required: false }
           - { label: "OG Image", name: "og_image", widget: "image", required: false }
 
       - file: "content/el/pages/about.json"
         name: "about"
-        label: "Σχετικά"
+        label: "Ξ£Ο‡ΞµΟ„ΞΉΞΊΞ¬"
         format: "json"
         fields:
-          - { label: "Τίτλος", name: "title", widget: "string" }
-          - { label: "Κείμενο", name: "body", widget: "markdown" }
+          - { label: "Ξ¤Ξ―Ο„Ξ»ΞΏΟ‚", name: "title", widget: "string" }
+          - { label: "ΞΞµΞ―ΞΌΞµΞ½ΞΏ", name: "body", widget: "markdown" }
           - { label: "SEO Title", name: "seo_title", widget: "string", required: false }
           - { label: "SEO Description", name: "seo_description", widget: "text", required: false }
           - { label: "OG Image", name: "og_image", widget: "image", required: false }
 
       - file: "content/el/pages/products.json"
         name: "products"
-        label: "Προϊόντα"
+        label: "Ξ ΟΞΏΟΟΞ½Ο„Ξ±"
         format: "json"
         fields:
-          - { label: "Τίτλος", name: "title", widget: "string" }
-          - { label: "Εισαγωγή", name: "intro", widget: "text", required: false }
+          - { label: "Ξ¤Ξ―Ο„Ξ»ΞΏΟ‚", name: "title", widget: "string" }
+          - { label: "Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ®", name: "intro", widget: "text", required: false }
           - { label: "SEO Title", name: "seo_title", widget: "string", required: false }
           - { label: "SEO Description", name: "seo_description", widget: "text", required: false }
           - { label: "OG Image", name: "og_image", widget: "image", required: false }
 
       - file: "content/el/pages/leaflets.json"
         name: "leaflets"
-        label: "Φυλλάδια"
+        label: "Ξ¦Ο…Ξ»Ξ»Ξ¬Ξ΄ΞΉΞ±"
         format: "json"
         fields:
-          - { label: "Τίτλος", name: "title", widget: "string" }
-          - { label: "Εισαγωγή", name: "intro", widget: "text", required: false }
+          - { label: "Ξ¤Ξ―Ο„Ξ»ΞΏΟ‚", name: "title", widget: "string" }
+          - { label: "Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ®", name: "intro", widget: "text", required: false }
           - { label: "SEO Title", name: "seo_title", widget: "string", required: false }
           - { label: "SEO Description", name: "seo_description", widget: "text", required: false }
           - { label: "OG Image", name: "og_image", widget: "image", required: false }
 
       - file: "content/el/pages/contact.json"
         name: "contact"
-        label: "Επικοινωνία"
+        label: "Ξ•Ο€ΞΉΞΊΞΏΞΉΞ½Ο‰Ξ½Ξ―Ξ±"
         format: "json"
         fields:
-          - { label: "Τίτλος", name: "title", widget: "string" }
-          - { label: "Εισαγωγή", name: "intro", widget: "text", required: false }
+          - { label: "Ξ¤Ξ―Ο„Ξ»ΞΏΟ‚", name: "title", widget: "string" }
+          - { label: "Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ®", name: "intro", widget: "text", required: false }
           - { label: "SEO Title", name: "seo_title", widget: "string", required: false }
           - { label: "SEO Description", name: "seo_description", widget: "text", required: false }
           - { label: "OG Image", name: "og_image", widget: "image", required: false }
 
       - file: "content/el/pages/privacy.json"
         name: "privacy"
-        label: "Πολιτική Απορρήτου"
+        label: "Ξ ΞΏΞ»ΞΉΟ„ΞΉΞΊΞ® Ξ‘Ο€ΞΏΟΟΞ®Ο„ΞΏΟ…"
         format: "json"
         fields:
-          - { label: "Τίτλος", name: "title", widget: "string" }
-          - { label: "Κείμενο", name: "body", widget: "markdown" }
+          - { label: "Ξ¤Ξ―Ο„Ξ»ΞΏΟ‚", name: "title", widget: "string" }
+          - { label: "ΞΞµΞ―ΞΌΞµΞ½ΞΏ", name: "body", widget: "markdown" }
           - { label: "SEO Title", name: "seo_title", widget: "string", required: false }
           - { label: "SEO Description", name: "seo_description", widget: "text", required: false }
 
       - file: "content/el/pages/cookies.json"
         name: "cookies"
-        label: "Πολιτική Cookies"
+        label: "Ξ ΞΏΞ»ΞΉΟ„ΞΉΞΊΞ® Cookies"
         format: "json"
         fields:
-          - { label: "Τίτλος", name: "title", widget: "string" }
-          - { label: "Κείμενο", name: "body", widget: "markdown" }
+          - { label: "Ξ¤Ξ―Ο„Ξ»ΞΏΟ‚", name: "title", widget: "string" }
+          - { label: "ΞΞµΞ―ΞΌΞµΞ½ΞΏ", name: "body", widget: "markdown" }
           - { label: "SEO Title", name: "seo_title", widget: "string", required: false }
           - { label: "SEO Description", name: "seo_description", widget: "text", required: false }
 
   - name: "categories"
-    label: "Κατηγορίες Προϊόντων"
-    label_singular: "Κατηγορία"
+    label: "ΞΞ±Ο„Ξ·Ξ³ΞΏΟΞ―ΞµΟ‚ Ξ ΟΞΏΟΟΞ½Ο„Ο‰Ξ½"
+    label_singular: "ΞΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±"
     folder: "content/el/categories"
     create: true
     extension: "json"
@@ -145,22 +156,22 @@ collections:
     identifier_field: "title"
     summary: "{{fields.title}} (/{{fields.slug}})"
     fields:
-      - { label: "Τίτλος", name: "title", widget: "string" }
-      - label: "Slug (λατινικά)"
+      - { label: "Ξ¤Ξ―Ο„Ξ»ΞΏΟ‚", name: "title", widget: "string" }
+      - label: "Slug (Ξ»Ξ±Ο„ΞΉΞ½ΞΉΞΊΞ¬)"
         name: "slug"
         widget: "string"
-        pattern: ["^[a-z0-9-]+$", "Χρησιμοποίησε μόνο λατινικά, αριθμούς και παύλες."]
-      - { label: "Τίτλος στο Μενού", name: "menu_title", widget: "string", required: false }
-      - { label: "Εισαγωγικό Κείμενο", name: "intro", widget: "markdown", hint: "Προτείνεται 5-7 γραμμές περιγραφικού κειμένου." }
-      - { label: "Εικόνα Κάρτας", name: "card_image", widget: "image", required: false, hint: "Μέγιστο προτεινόμενο μέγεθος: 2MB." }
-      - { label: "Banner Εικόνα", name: "banner_image", widget: "image", required: false, hint: "Μέγιστο προτεινόμενο μέγεθος: 2MB." }
+        pattern: ["^[a-z0-9-]+$", "Ξ§ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞ―Ξ·ΟƒΞµ ΞΌΟΞ½ΞΏ Ξ»Ξ±Ο„ΞΉΞ½ΞΉΞΊΞ¬, Ξ±ΟΞΉΞΈΞΌΞΏΟΟ‚ ΞΊΞ±ΞΉ Ο€Ξ±ΟΞ»ΞµΟ‚."]
+      - { label: "Ξ¤Ξ―Ο„Ξ»ΞΏΟ‚ ΟƒΟ„ΞΏ ΞΞµΞ½ΞΏΟ", name: "menu_title", widget: "string", required: false }
+      - { label: "Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³ΞΉΞΊΟ ΞΞµΞ―ΞΌΞµΞ½ΞΏ", name: "intro", widget: "markdown", hint: "Ξ ΟΞΏΟ„ΞµΞ―Ξ½ΞµΟ„Ξ±ΞΉ 5-7 Ξ³ΟΞ±ΞΌΞΌΞ­Ο‚ Ο€ΞµΟΞΉΞ³ΟΞ±Ο†ΞΉΞΊΞΏΟ ΞΊΞµΞΉΞΌΞ­Ξ½ΞΏΟ…." }
+      - { label: "Ξ•ΞΉΞΊΟΞ½Ξ± ΞΞ¬ΟΟ„Ξ±Ο‚", name: "card_image", widget: "image", required: false, hint: "ΞΞ­Ξ³ΞΉΟƒΟ„ΞΏ Ο€ΟΞΏΟ„ΞµΞΉΞ½ΟΞΌΞµΞ½ΞΏ ΞΌΞ­Ξ³ΞµΞΈΞΏΟ‚: 2MB." }
+      - { label: "Banner Ξ•ΞΉΞΊΟΞ½Ξ±", name: "banner_image", widget: "image", required: false, hint: "ΞΞ­Ξ³ΞΉΟƒΟ„ΞΏ Ο€ΟΞΏΟ„ΞµΞΉΞ½ΟΞΌΞµΞ½ΞΏ ΞΌΞ­Ξ³ΞµΞΈΞΏΟ‚: 2MB." }
       - { label: "Meta Description", name: "meta_description", widget: "text", required: false }
-      - { label: "Σειρά Εμφάνισης", name: "order", widget: "number", default: 100, value_type: "int", min: 1 }
-      - { label: "Εμφάνιση στο site", name: "is_visible", widget: "boolean", default: true }
+      - { label: "Ξ£ΞµΞΉΟΞ¬ Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·Ο‚", name: "order", widget: "number", default: 100, value_type: "int", min: 1 }
+      - { label: "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· ΟƒΟ„ΞΏ site", name: "is_visible", widget: "boolean", default: true }
 
   - name: "subcategories"
-    label: "Υποκατηγορίες"
-    label_singular: "Υποκατηγορία"
+    label: "Ξ¥Ο€ΞΏΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―ΞµΟ‚"
+    label_singular: "Ξ¥Ο€ΞΏΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±"
     folder: "content/el/subcategories"
     create: true
     extension: "json"
@@ -168,27 +179,27 @@ collections:
     identifier_field: "title"
     summary: "{{fields.title}} -> {{fields.category}}"
     fields:
-      - { label: "Τίτλος", name: "title", widget: "string" }
-      - label: "Slug (λατινικά)"
+      - { label: "Ξ¤Ξ―Ο„Ξ»ΞΏΟ‚", name: "title", widget: "string" }
+      - label: "Slug (Ξ»Ξ±Ο„ΞΉΞ½ΞΉΞΊΞ¬)"
         name: "slug"
         widget: "string"
-        pattern: ["^[a-z0-9-]+$", "Χρησιμοποίησε μόνο λατινικά, αριθμούς και παύλες."]
-      - label: "Γονική Κατηγορία"
+        pattern: ["^[a-z0-9-]+$", "Ξ§ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞ―Ξ·ΟƒΞµ ΞΌΟΞ½ΞΏ Ξ»Ξ±Ο„ΞΉΞ½ΞΉΞΊΞ¬, Ξ±ΟΞΉΞΈΞΌΞΏΟΟ‚ ΞΊΞ±ΞΉ Ο€Ξ±ΟΞ»ΞµΟ‚."]
+      - label: "Ξ“ΞΏΞ½ΞΉΞΊΞ® ΞΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±"
         name: "category"
         widget: "relation"
         collection: "categories"
         value_field: "slug"
         search_fields: ["title", "slug"]
         display_fields: ["title"]
-      - { label: "Εισαγωγικό Κείμενο", name: "intro", widget: "markdown", required: false }
-      - { label: "Banner Εικόνα", name: "banner_image", widget: "image", required: false, hint: "Μέγιστο προτεινόμενο μέγεθος: 2MB." }
+      - { label: "Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³ΞΉΞΊΟ ΞΞµΞ―ΞΌΞµΞ½ΞΏ", name: "intro", widget: "markdown", required: false }
+      - { label: "Banner Ξ•ΞΉΞΊΟΞ½Ξ±", name: "banner_image", widget: "image", required: false, hint: "ΞΞ­Ξ³ΞΉΟƒΟ„ΞΏ Ο€ΟΞΏΟ„ΞµΞΉΞ½ΟΞΌΞµΞ½ΞΏ ΞΌΞ­Ξ³ΞµΞΈΞΏΟ‚: 2MB." }
       - { label: "Meta Description", name: "meta_description", widget: "text", required: false }
-      - { label: "Σειρά Εμφάνισης", name: "order", widget: "number", default: 100, value_type: "int", min: 1 }
-      - { label: "Εμφάνιση στο site", name: "is_visible", widget: "boolean", default: true }
+      - { label: "Ξ£ΞµΞΉΟΞ¬ Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·Ο‚", name: "order", widget: "number", default: 100, value_type: "int", min: 1 }
+      - { label: "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· ΟƒΟ„ΞΏ site", name: "is_visible", widget: "boolean", default: true }
 
   - name: "products"
-    label: "Προϊόντα"
-    label_singular: "Προϊόν"
+    label: "Ξ ΟΞΏΟΟΞ½Ο„Ξ±"
+    label_singular: "Ξ ΟΞΏΟΟΞ½"
     folder: "content/el/products"
     create: true
     extension: "json"
@@ -196,20 +207,20 @@ collections:
     identifier_field: "title"
     summary: "{{fields.title}} ({{fields.category}}/{{fields.subcategory}})"
     fields:
-      - { label: "Όνομα Προϊόντος", name: "title", widget: "string" }
-      - label: "Slug (λατινικά)"
+      - { label: "ΞΞ½ΞΏΞΌΞ± Ξ ΟΞΏΟΟΞ½Ο„ΞΏΟ‚", name: "title", widget: "string" }
+      - label: "Slug (Ξ»Ξ±Ο„ΞΉΞ½ΞΉΞΊΞ¬)"
         name: "slug"
         widget: "string"
         required: false
-        pattern: ["^[a-z0-9-]*$", "Χρησιμοποίησε μόνο λατινικά, αριθμούς και παύλες."]
-      - label: "Κατηγορία (Υποχρεωτικό)"
+        pattern: ["^[a-z0-9-]*$", "Ξ§ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞ―Ξ·ΟƒΞµ ΞΌΟΞ½ΞΏ Ξ»Ξ±Ο„ΞΉΞ½ΞΉΞΊΞ¬, Ξ±ΟΞΉΞΈΞΌΞΏΟΟ‚ ΞΊΞ±ΞΉ Ο€Ξ±ΟΞ»ΞµΟ‚."]
+      - label: "ΞΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ± (Ξ¥Ο€ΞΏΟ‡ΟΞµΟ‰Ο„ΞΉΞΊΟ)"
         name: "category"
         widget: "relation"
         collection: "categories"
         value_field: "slug"
         search_fields: ["title", "slug"]
         display_fields: ["title"]
-      - label: "Υποκατηγορία (Προαιρετικό)"
+      - label: "Ξ¥Ο€ΞΏΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ± (Ξ ΟΞΏΞ±ΞΉΟΞµΟ„ΞΉΞΊΟ)"
         name: "subcategory"
         widget: "relation"
         collection: "subcategories"
@@ -217,16 +228,16 @@ collections:
         search_fields: ["title", "slug", "category"]
         display_fields: ["title", "category"]
         required: false
-        hint: "Αν μείνει κενό, το προϊόν θα εμφανιστεί απευθείας στη σελίδα κατηγορίας."
-      - { label: "Σύντομη Περιγραφή", name: "description", widget: "text" }
-      - { label: "Συσκευασία", name: "packaging", widget: "string", required: false, hint: "Παράδειγμα: 12x330ml" }
-      - { label: "Εικόνα Προϊόντος", name: "image", widget: "image", hint: "Μέγιστο προτεινόμενο μέγεθος: 2MB." }
-      - { label: "Σειρά Εμφάνισης", name: "order", widget: "number", default: 100, value_type: "int", min: 1 }
-      - { label: "Εμφάνιση στο site", name: "is_visible", widget: "boolean", default: true }
+        hint: "Ξ‘Ξ½ ΞΌΞµΞ―Ξ½ΞµΞΉ ΞΊΞµΞ½Ο, Ο„ΞΏ Ο€ΟΞΏΟΟΞ½ ΞΈΞ± ΞµΞΌΟ†Ξ±Ξ½ΞΉΟƒΟ„ΞµΞ― Ξ±Ο€ΞµΟ…ΞΈΞµΞ―Ξ±Ο‚ ΟƒΟ„Ξ· ΟƒΞµΞ»Ξ―Ξ΄Ξ± ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±Ο‚."
+      - { label: "Ξ£ΟΞ½Ο„ΞΏΞΌΞ· Ξ ΞµΟΞΉΞ³ΟΞ±Ο†Ξ®", name: "description", widget: "text" }
+      - { label: "Ξ£Ο…ΟƒΞΊΞµΟ…Ξ±ΟƒΞ―Ξ±", name: "packaging", widget: "string", required: false, hint: "Ξ Ξ±ΟΞ¬Ξ΄ΞµΞΉΞ³ΞΌΞ±: 12x330ml" }
+      - { label: "Ξ•ΞΉΞΊΟΞ½Ξ± Ξ ΟΞΏΟΟΞ½Ο„ΞΏΟ‚", name: "image", widget: "image", hint: "ΞΞ­Ξ³ΞΉΟƒΟ„ΞΏ Ο€ΟΞΏΟ„ΞµΞΉΞ½ΟΞΌΞµΞ½ΞΏ ΞΌΞ­Ξ³ΞµΞΈΞΏΟ‚: 2MB." }
+      - { label: "Ξ£ΞµΞΉΟΞ¬ Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·Ο‚", name: "order", widget: "number", default: 100, value_type: "int", min: 1 }
+      - { label: "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· ΟƒΟ„ΞΏ site", name: "is_visible", widget: "boolean", default: true }
 
   - name: "leaflets"
-    label: "Φυλλάδια"
-    label_singular: "Φυλλάδιο"
+    label: "Ξ¦Ο…Ξ»Ξ»Ξ¬Ξ΄ΞΉΞ±"
+    label_singular: "Ξ¦Ο…Ξ»Ξ»Ξ¬Ξ΄ΞΉΞΏ"
     folder: "content/el/leaflets"
     create: true
     extension: "json"
@@ -234,16 +245,17 @@ collections:
     identifier_field: "title"
     summary: "{{fields.title}}"
     fields:
-      - { label: "Τίτλος", name: "title", widget: "string" }
-      - label: "Slug (λατινικά)"
+      - { label: "Ξ¤Ξ―Ο„Ξ»ΞΏΟ‚", name: "title", widget: "string" }
+      - label: "Slug (Ξ»Ξ±Ο„ΞΉΞ½ΞΉΞΊΞ¬)"
         name: "slug"
         widget: "string"
         required: false
-        pattern: ["^[a-z0-9-]*$", "Χρησιμοποίησε μόνο λατινικά, αριθμούς και παύλες."]
-      - { label: "Κατηγορία (προαιρετική σημείωση)", name: "category", widget: "string", required: false }
-      - { label: "Περιγραφή", name: "description", widget: "text", required: false }
-      - { label: "Thumbnail", name: "thumbnail", widget: "image", media_folder: "assets/uploads/images", public_folder: "/assets/uploads/images", hint: "Μέγιστο προτεινόμενο μέγεθος: 2MB." }
-      - { label: "Αρχείο Φυλλαδίου (PDF ή εικόνα)", name: "file", widget: "file", media_folder: "assets/uploads/leaflets", public_folder: "/assets/uploads/leaflets", hint: "Για PDF προτείνεται μέγιστο 20MB. Προτίμησε όνομα αρχείου με λατινικούς χαρακτήρες (a-z, 0-9, -)." }
-      - { label: "Το αρχείο είναι PDF;", name: "is_pdf", widget: "boolean", default: true }
-      - { label: "Σειρά Εμφάνισης", name: "order", widget: "number", default: 100, value_type: "int", min: 1 }
-      - { label: "Εμφάνιση στο site", name: "is_visible", widget: "boolean", default: true }
+        pattern: ["^[a-z0-9-]*$", "Ξ§ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞ―Ξ·ΟƒΞµ ΞΌΟΞ½ΞΏ Ξ»Ξ±Ο„ΞΉΞ½ΞΉΞΊΞ¬, Ξ±ΟΞΉΞΈΞΌΞΏΟΟ‚ ΞΊΞ±ΞΉ Ο€Ξ±ΟΞ»ΞµΟ‚."]
+      - { label: "ΞΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ± (Ο€ΟΞΏΞ±ΞΉΟΞµΟ„ΞΉΞΊΞ® ΟƒΞ·ΞΌΞµΞ―Ο‰ΟƒΞ·)", name: "category", widget: "string", required: false }
+      - { label: "Ξ ΞµΟΞΉΞ³ΟΞ±Ο†Ξ®", name: "description", widget: "text", required: false }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", media_folder: "assets/uploads/images", public_folder: "/assets/uploads/images", hint: "ΞΞ­Ξ³ΞΉΟƒΟ„ΞΏ Ο€ΟΞΏΟ„ΞµΞΉΞ½ΟΞΌΞµΞ½ΞΏ ΞΌΞ­Ξ³ΞµΞΈΞΏΟ‚: 2MB." }
+      - { label: "Ξ‘ΟΟ‡ΞµΞ―ΞΏ Ξ¦Ο…Ξ»Ξ»Ξ±Ξ΄Ξ―ΞΏΟ… (PDF Ξ® ΞµΞΉΞΊΟΞ½Ξ±)", name: "file", widget: "file", media_folder: "assets/uploads/leaflets", public_folder: "/assets/uploads/leaflets", hint: "Ξ“ΞΉΞ± PDF Ο€ΟΞΏΟ„ΞµΞ―Ξ½ΞµΟ„Ξ±ΞΉ ΞΌΞ­Ξ³ΞΉΟƒΟ„ΞΏ 20MB. Ξ ΟΞΏΟ„Ξ―ΞΌΞ·ΟƒΞµ ΟΞ½ΞΏΞΌΞ± Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… ΞΌΞµ Ξ»Ξ±Ο„ΞΉΞ½ΞΉΞΊΞΏΟΟ‚ Ο‡Ξ±ΟΞ±ΞΊΟ„Ξ®ΟΞµΟ‚ (a-z, 0-9, -)." }
+      - { label: "Ξ¤ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ ΞµΞ―Ξ½Ξ±ΞΉ PDF;", name: "is_pdf", widget: "boolean", default: true }
+      - { label: "Ξ£ΞµΞΉΟΞ¬ Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·Ο‚", name: "order", widget: "number", default: 100, value_type: "int", min: 1 }
+      - { label: "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· ΟƒΟ„ΞΏ site", name: "is_visible", widget: "boolean", default: true }
+

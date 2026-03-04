@@ -20,9 +20,25 @@ eleventyComputed:
     <div class="contact-grid">
       <article class="contact-card">
         <h2>Τηλέφωνο</h2>
-        <p><a href="{{ siteData.settings.primary_phone_href or ('tel:' + (siteData.settings.primary_phone | replace(' ', ''))) }}" data-track-event="contact_phone_click" data-track-label="primary_phone">{{ siteData.settings.primary_phone }}</a></p>
+        <p class="phone-with-viber">
+          <a href="{{ siteData.settings.primary_phone_href or ('tel:' + (siteData.settings.primary_phone | replace(' ', ''))) }}" data-track-event="contact_phone_click" data-track-label="primary_phone">{{ siteData.settings.primary_phone }}</a>
+          {% if siteData.settings.primary_phone_viber_href %}
+          <a class="viber-link" href="{{ siteData.settings.primary_phone_viber_href }}" data-track-event="contact_viber_click" data-track-label="contact_primary_phone_viber" aria-label="Μήνυμα στο Viber (κύριο τηλέφωνο)">
+            <img class="viber-icon" src="/assets/icons/viber.png" alt="" loading="lazy" decoding="async" />
+            <span class="sr-only">Viber</span>
+          </a>
+          {% endif %}
+        </p>
         {% if siteData.settings.enable_second_phone and siteData.settings.second_phone %}
-        <p><a href="{{ siteData.settings.second_phone_href or ('tel:' + (siteData.settings.second_phone | replace(' ', ''))) }}" data-track-event="contact_phone_click" data-track-label="second_phone">{{ siteData.settings.second_phone }}</a></p>
+        <p class="phone-with-viber">
+          <a href="{{ siteData.settings.second_phone_href or ('tel:' + (siteData.settings.second_phone | replace(' ', ''))) }}" data-track-event="contact_phone_click" data-track-label="second_phone">{{ siteData.settings.second_phone }}</a>
+          {% if siteData.settings.second_phone_viber_href %}
+          <a class="viber-link" href="{{ siteData.settings.second_phone_viber_href }}" data-track-event="contact_viber_click" data-track-label="contact_second_phone_viber" aria-label="Μήνυμα στο Viber (δεύτερο τηλέφωνο)">
+            <img class="viber-icon" src="/assets/icons/viber.png" alt="" loading="lazy" decoding="async" />
+            <span class="sr-only">Viber</span>
+          </a>
+          {% endif %}
+        </p>
         {% endif %}
       </article>
       <article class="contact-card">

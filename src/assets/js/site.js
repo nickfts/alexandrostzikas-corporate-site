@@ -303,6 +303,67 @@
     });
   }
 
+  const mobileQuickActions = document.querySelector("[data-mobile-quick-actions]");
+  if (mobileQuickActions) {
+    const quickToggle = mobileQuickActions.querySelector("[data-mobile-quick-toggle]");
+    const quickPanel = mobileQuickActions.querySelector("[data-mobile-quick-panel]");
+    const desktopBreakpoint = window.matchMedia("(min-width: 1024px)");
+
+    function closeQuickActions() {
+      if (!quickToggle || !quickPanel) return;
+      mobileQuickActions.classList.remove("is-open");
+      quickPanel.hidden = true;
+      quickToggle.setAttribute("aria-expanded", "false");
+    }
+
+    function openQuickActions() {
+      if (!quickToggle || !quickPanel) return;
+      mobileQuickActions.classList.add("is-open");
+      quickPanel.hidden = false;
+      quickToggle.setAttribute("aria-expanded", "true");
+    }
+
+    if (quickToggle && quickPanel) {
+      quickToggle.addEventListener("click", () => {
+        const isOpen = mobileQuickActions.classList.contains("is-open");
+        if (isOpen) {
+          closeQuickActions();
+        } else {
+          openQuickActions();
+        }
+      });
+
+      document.addEventListener("click", (event) => {
+        if (mobileQuickActions.contains(event.target)) return;
+        closeQuickActions();
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          closeQuickActions();
+        }
+      });
+
+      mobileQuickActions.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          closeQuickActions();
+        });
+      });
+
+      const onDesktopBreakpointChange = (event) => {
+        if (event.matches) {
+          closeQuickActions();
+        }
+      };
+
+      if (typeof desktopBreakpoint.addEventListener === "function") {
+        desktopBreakpoint.addEventListener("change", onDesktopBreakpointChange);
+      } else if (typeof desktopBreakpoint.addListener === "function") {
+        desktopBreakpoint.addListener(onDesktopBreakpointChange);
+      }
+    }
+  }
+
   const revealElements = Array.from(document.querySelectorAll(".reveal-on-view"));
   if (!revealElements.length) return;
 

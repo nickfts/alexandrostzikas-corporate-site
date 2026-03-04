@@ -26,13 +26,24 @@ eleventyComputed:
 <section class="section section-tight">
   <div class="container">
     <h2>Υποκατηγορίες</h2>
-    <div class="subcategory-list">
+    <div class="card-grid card-grid-categories">
       {% for subcategory in subcategories %}
-      <article class="subcategory-item">
-        <h3>
-          <a href="/el/products/{{ category.slug }}/{{ subcategory.slug }}/">{{ subcategory.title }}</a>
-        </h3>
-        <p>{{ subcategory.intro | striptags | truncate(140, true, '...') }}</p>
+      <article class="card card-subcategory">
+        <a href="/el/products/{{ category.slug }}/{{ subcategory.slug }}/" class="card-media-link">
+          <img
+            src="{% if subcategory.banner_image %}{{ subcategory.banner_image }}{% elseif category.card_image %}{{ category.card_image }}{% elseif category.banner_image %}{{ category.banner_image }}{% else %}/assets/branding/logo-slogan.png{% endif %}"
+            alt="{{ subcategory.title }}"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="card-media-hint">Περισσότερα...</span>
+        </a>
+        <div class="card-body">
+          <h3>
+            <a href="/el/products/{{ category.slug }}/{{ subcategory.slug }}/">{{ subcategory.title }}</a>
+          </h3>
+          <p>{{ subcategory.intro | striptags | truncate(140, true, '...') }}</p>
+        </div>
       </article>
       {% endfor %}
     </div>

@@ -43,6 +43,7 @@ eleventyComputed:
             loading="lazy"
             decoding="async"
           />
+          <span class="card-media-hint">Περισσότερα...</span>
         </a>
         <div class="card-body">
           <h3><a href="/el/products/{{ category.slug }}/">{{ category.title }}</a></h3>
@@ -57,6 +58,28 @@ eleventyComputed:
     {% endif %}
   </div>
 </section>
+
+{% set valuesBannerEnabled = siteData.pages.home.values_banner_enabled != false %}
+{% set valuesBannerItems = siteData.pages.home.values_banner_items or [] %}
+{% if valuesBannerEnabled and valuesBannerItems.length %}
+<section class="home-values-band" aria-label="Αξίες Επιχείρησης">
+  <div class="container">
+    <div class="home-values-strip">
+      {% for valueItem in valuesBannerItems %}
+      <div class="home-value-item">
+        {% if valueItem.icon %}
+        <img src="{{ valueItem.icon }}" alt="" loading="lazy" decoding="async" />
+        {% endif %}
+        <span>{{ valueItem.label }}</span>
+      </div>
+      {% if not loop.last %}
+      <span class="home-value-dot" aria-hidden="true">●</span>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
 
 <section class="section section-cta">
   <div class="container cta-box">

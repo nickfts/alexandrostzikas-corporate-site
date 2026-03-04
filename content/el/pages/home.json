@@ -9,5 +9,20 @@
   "hero_image": "/assets/uploads/bunner.webp",
   "seo_title": "Αλέξανδρος Τζήκας | Εμπορία Τροφίμων",
   "seo_description": "Εμπορία τροφίμων με έμφαση στην ποιότητα, την αξιοπιστία και την προσωπική εξυπηρέτηση.",
-  "cta_text": "Η ομάδα μας είναι διαθέσιμη για προτάσεις προϊόντων, τιμοκαταλόγους και συνεργασίες."
+  "cta_text": "Η ομάδα μας είναι διαθέσιμη για προτάσεις προϊόντων, τιμοκαταλόγους και συνεργασίες.",
+  "values_banner_enabled": true,
+  "values_banner_items": [
+    {
+      "label": "Αξιοπιστία",
+      "icon": "/assets/uploads/values/xvan.png"
+    },
+    {
+      "label": "Υπευθυνότητα",
+      "icon": "/assets/uploads/values/box.png"
+    },
+    {
+      "label": "Συνέπεια",
+      "icon": "/assets/uploads/values/checklist.png"
+    }
+  ]
 }

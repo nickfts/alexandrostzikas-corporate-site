@@ -250,6 +250,14 @@ function toMailHref(rawEmail) {
   return `mailto:${email}`;
 }
 
+function toViberHref(rawPhone) {
+  const phone = safeText(rawPhone).trim();
+  if (!phone) return "";
+  const compact = phone.replace(/[^+\d]/g, "");
+  if (!compact) return "";
+  return `viber://chat?number=${encodeURIComponent(compact)}`;
+}
+
 module.exports = () => {
   const root = process.cwd();
   const localeRoot = path.join(root, "content", "el");
@@ -266,6 +274,8 @@ module.exports = () => {
     ),
     primary_phone_href: toPhoneHref(settingsRaw.primary_phone),
     second_phone_href: toPhoneHref(settingsRaw.second_phone),
+    primary_phone_viber_href: toViberHref(settingsRaw.primary_phone),
+    second_phone_viber_href: toViberHref(settingsRaw.second_phone),
     email_href: toMailHref(settingsRaw.email)
   };
 

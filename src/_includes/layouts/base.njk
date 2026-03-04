@@ -134,10 +134,48 @@
         <section>
           <h2>Η Επιχείρηση</h2>
           <p>{{ siteData.settings.company_name }}</p>
-          <p>{{ siteData.settings.address }}</p>
-          <p><a href="{{ siteData.settings.primary_phone_href or ('tel:' + (siteData.settings.primary_phone | replace(' ', ''))) }}">{{ siteData.settings.primary_phone }}</a></p>
+          <p>
+            <a
+              href="{{ siteData.settings.google_maps_action_url or siteData.settings.google_maps_url or 'https://maps.google.com/' }}"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-track-event="google_maps_click"
+              data-track-label="footer_address"
+            >
+              {{ siteData.settings.address }}
+            </a>
+          </p>
+          <p class="phone-with-viber">
+            <a href="{{ siteData.settings.primary_phone_href or ('tel:' + (siteData.settings.primary_phone | replace(' ', ''))) }}">{{ siteData.settings.primary_phone }}</a>
+            {% if siteData.settings.primary_phone_viber_href %}
+            <a
+              class="viber-link"
+              href="{{ siteData.settings.primary_phone_viber_href }}"
+              data-track-event="contact_viber_click"
+              data-track-label="footer_primary_phone_viber"
+              aria-label="Μήνυμα στο Viber (κύριο τηλέφωνο)"
+            >
+              <img class="viber-icon" src="/assets/icons/viber.png" alt="" loading="lazy" decoding="async" />
+              <span class="sr-only">Viber</span>
+            </a>
+            {% endif %}
+          </p>
           {% if siteData.settings.enable_second_phone and siteData.settings.second_phone %}
-          <p><a href="{{ siteData.settings.second_phone_href or ('tel:' + (siteData.settings.second_phone | replace(' ', ''))) }}">{{ siteData.settings.second_phone }}</a></p>
+          <p class="phone-with-viber">
+            <a href="{{ siteData.settings.second_phone_href or ('tel:' + (siteData.settings.second_phone | replace(' ', ''))) }}">{{ siteData.settings.second_phone }}</a>
+            {% if siteData.settings.second_phone_viber_href %}
+            <a
+              class="viber-link"
+              href="{{ siteData.settings.second_phone_viber_href }}"
+              data-track-event="contact_viber_click"
+              data-track-label="footer_second_phone_viber"
+              aria-label="Μήνυμα στο Viber (δεύτερο τηλέφωνο)"
+            >
+              <img class="viber-icon" src="/assets/icons/viber.png" alt="" loading="lazy" decoding="async" />
+              <span class="sr-only">Viber</span>
+            </a>
+            {% endif %}
+          </p>
           {% endif %}
           <p>
             <a href="{{ siteData.settings.email_href or ('mailto:' + siteData.settings.email) }}">{{ siteData.settings.email }}</a>
@@ -155,7 +193,7 @@
           </ul>
         </section>
         <section>
-          <h2>Social</h2>
+          <h2>Ακολουθήστε μας στα Social</h2>
           <ul class="footer-links">
             <li><a href="{{ siteData.settings.social_facebook or '#' }}" target="_blank" rel="noopener noreferrer">Facebook</a></li>
             <li><a href="{{ siteData.settings.social_instagram or '#' }}" target="_blank" rel="noopener noreferrer">Instagram</a></li>
@@ -167,6 +205,51 @@
         <small>&copy; {{ meta.currentYear }} {{ siteData.settings.company_name }}. Με επιφύλαξη παντός δικαιώματος.</small>
       </div>
     </footer>
+
+    {% set quickPhoneHref = siteData.settings.primary_phone_href or ('tel:' + (siteData.settings.primary_phone | replace(' ', ''))) %}
+    {% set quickEmailHref = siteData.settings.email_href or ('mailto:' + siteData.settings.email) %}
+    {% set quickMapsHref = siteData.settings.google_maps_action_url or siteData.settings.google_maps_url or 'https://maps.google.com/' %}
+    {% set quickViberHref = siteData.settings.primary_phone_viber_href %}
+    {% if quickPhoneHref or quickEmailHref or quickMapsHref or quickViberHref %}
+    <div class="mobile-quick-actions" data-mobile-quick-actions>
+      {% if quickViberHref %}
+      <a
+        class="mobile-quick-viber-fab"
+        href="{{ quickViberHref }}"
+        data-track-event="contact_viber_click"
+        data-track-label="quick_actions_viber"
+        aria-label="Μήνυμα στο Viber"
+      >
+        <img class="mobile-quick-viber-icon" src="/assets/icons/viber.png" alt="" loading="lazy" decoding="async" />
+        <span class="sr-only">Viber</span>
+      </a>
+      {% endif %}
+      <button
+        type="button"
+        class="mobile-quick-actions-toggle"
+        data-mobile-quick-toggle
+        aria-expanded="false"
+        aria-controls="mobile-quick-actions-panel"
+      >
+        <svg class="mobile-quick-actions-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="7.9" r="1.35" fill="currentColor"></circle>
+          <path d="M12 10.7V16.6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path>
+        </svg>
+        <span class="sr-only">Ενέργειες επικοινωνίας</span>
+      </button>
+      <div id="mobile-quick-actions-panel" class="mobile-quick-actions-panel" data-mobile-quick-panel hidden>
+        {% if quickMapsHref %}
+        <a class="mobile-quick-action" href="{{ quickMapsHref }}" target="_blank" rel="noopener noreferrer" data-track-event="google_maps_click" data-track-label="quick_actions_maps">Οδηγίες</a>
+        {% endif %}
+        {% if quickEmailHref %}
+        <a class="mobile-quick-action" href="{{ quickEmailHref }}" data-track-event="contact_email_click" data-track-label="quick_actions_email">Email</a>
+        {% endif %}
+        {% if quickPhoneHref %}
+        <a class="mobile-quick-action" href="{{ quickPhoneHref }}" data-track-event="contact_phone_click" data-track-label="quick_actions_phone">Κλήση</a>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
 
     {% if analyticsEnabled %}
     <section class="cookie-banner" data-cookie-banner hidden aria-label="Cookies consent">
