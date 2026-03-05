@@ -212,18 +212,6 @@
     {% set quickViberHref = siteData.settings.primary_phone_viber_href %}
     {% if quickPhoneHref or quickEmailHref or quickMapsHref or quickViberHref %}
     <div class="mobile-quick-actions" data-mobile-quick-actions>
-      {% if quickViberHref %}
-      <a
-        class="mobile-quick-viber-fab"
-        href="{{ quickViberHref }}"
-        data-track-event="contact_viber_click"
-        data-track-label="quick_actions_viber"
-        aria-label="Μήνυμα στο Viber"
-      >
-        <img class="mobile-quick-viber-icon" src="/assets/icons/viber.png" alt="" loading="lazy" decoding="async" />
-        <span class="sr-only">Viber</span>
-      </a>
-      {% endif %}
       <button
         type="button"
         class="mobile-quick-actions-toggle"
@@ -231,21 +219,59 @@
         aria-expanded="false"
         aria-controls="mobile-quick-actions-panel"
       >
-        <svg class="mobile-quick-actions-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <circle cx="12" cy="7.9" r="1.35" fill="currentColor"></circle>
-          <path d="M12 10.7V16.6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path>
-        </svg>
-        <span class="sr-only">Ενέργειες επικοινωνίας</span>
+        <img class="mobile-quick-actions-icon" src="/assets/icons/info.png" alt="" loading="lazy" decoding="async" />
+        <span class="sr-only">Quick actions</span>
       </button>
       <div id="mobile-quick-actions-panel" class="mobile-quick-actions-panel" data-mobile-quick-panel hidden>
         {% if quickMapsHref %}
-        <a class="mobile-quick-action" href="{{ quickMapsHref }}" target="_blank" rel="noopener noreferrer" data-track-event="google_maps_click" data-track-label="quick_actions_maps">Οδηγίες</a>
+        <a
+          class="mobile-quick-action-icon"
+          href="{{ quickMapsHref }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          data-track-event="google_maps_click"
+          data-track-label="quick_actions_maps"
+          aria-label="Maps"
+        >
+          <img src="/assets/icons/map.png" alt="" loading="lazy" decoding="async" />
+          <span class="sr-only">Maps</span>
+        </a>
         {% endif %}
         {% if quickEmailHref %}
-        <a class="mobile-quick-action" href="{{ quickEmailHref }}" data-track-event="contact_email_click" data-track-label="quick_actions_email">Email</a>
+        <a
+          class="mobile-quick-action-icon"
+          href="{{ quickEmailHref }}"
+          data-track-event="contact_email_click"
+          data-track-label="quick_actions_email"
+          aria-label="Email"
+        >
+          <img src="/assets/icons/mail.png" alt="" loading="lazy" decoding="async" />
+          <span class="sr-only">Email</span>
+        </a>
+        {% endif %}
+        {% if quickViberHref %}
+        <a
+          class="mobile-quick-action-icon"
+          href="{{ quickViberHref }}"
+          data-track-event="contact_viber_click"
+          data-track-label="quick_actions_viber"
+          aria-label="Viber"
+        >
+          <img src="/assets/icons/viber.png" alt="" loading="lazy" decoding="async" />
+          <span class="sr-only">Viber</span>
+        </a>
         {% endif %}
         {% if quickPhoneHref %}
-        <a class="mobile-quick-action" href="{{ quickPhoneHref }}" data-track-event="contact_phone_click" data-track-label="quick_actions_phone">Κλήση</a>
+        <a
+          class="mobile-quick-action-icon"
+          href="{{ quickPhoneHref }}"
+          data-track-event="contact_phone_click"
+          data-track-label="quick_actions_phone"
+          aria-label="Phone"
+        >
+          <img src="/assets/icons/phone.png" alt="" loading="lazy" decoding="async" />
+          <span class="sr-only">Phone</span>
+        </a>
         {% endif %}
       </div>
     </div>
