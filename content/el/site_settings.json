@@ -21,6 +21,6 @@
   "social_facebook": "https://facebook.com/",
   "logo_path": "/assets/branding/logo.png",
   "email": "tzikasalexandros10@gmail.com",
-  "enable_contact_form": false,
+  "enable_contact_form": true,
   "enable_second_phone": false
 }

@@ -82,16 +82,19 @@ eleventyComputed:
   </div>
 </section>
 
-{% if siteData.settings.enable_contact_form and siteData.settings.contact_form_endpoint %}
+{% if siteData.settings.enable_contact_form %}
 <section class="section section-tight">
   <div class="container">
     <article class="contact-card">
       <h2>Φόρμα Επικοινωνίας</h2>
       <p>Στείλτε μας το μήνυμά σας και θα επικοινωνήσουμε μαζί σας το συντομότερο δυνατό.</p>
+      {% if not siteData.settings.contact_form_endpoint %}
+      <p class="form-status">Προσωρινά εκτός λειτουργίας.</p>
+      {% endif %}
       <form
         class="contact-form"
         method="post"
-        action="{{ siteData.settings.contact_form_endpoint }}"
+        action="{{ siteData.settings.contact_form_endpoint or '' }}"
         data-remote-contact-form
       >
         <input type="hidden" name="_subject" value="Νέο μήνυμα από τη φόρμα επικοινωνίας" />
@@ -120,7 +123,7 @@ eleventyComputed:
           Μήνυμα
           <textarea name="message" rows="5" required></textarea>
         </label>
-        <button type="submit" class="btn btn-solid" data-track-event="contact_form_submit_click">Αποστολή</button>
+        <button type="submit" class="btn btn-solid" data-track-event="contact_form_submit_click" {% if not siteData.settings.contact_form_endpoint %}disabled aria-disabled="true"{% endif %}>Αποστολή</button>
         <p class="form-status" data-form-status hidden></p>
       </form>
     </article>

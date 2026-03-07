@@ -50,6 +50,36 @@
     if (!dropdown || !dropdownToggle) return;
     dropdown.hidden = true;
     dropdownToggle.setAttribute("aria-expanded", "false");
+    dropdown.style.removeProperty("--dropdown-shift");
+    dropdown.style.removeProperty("--dropdown-width");
+  }
+
+  function alignDropdownWithinViewport() {
+    if (!dropdown || dropdown.hidden || window.innerWidth < 1024) return;
+
+    const gutter = 25;
+    const maxPanelWidth = 860;
+    const minPanelWidth = 280;
+    dropdown.style.setProperty("--dropdown-shift", "0px");
+    dropdown.style.removeProperty("--dropdown-width");
+
+    const toggleRect = dropdownToggle.getBoundingClientRect();
+    const availableRight = window.innerWidth - gutter - toggleRect.left;
+    const targetWidth = Math.max(minPanelWidth, Math.min(maxPanelWidth, availableRight));
+    dropdown.style.setProperty("--dropdown-width", `${Math.round(targetWidth)}px`);
+
+    const rect = dropdown.getBoundingClientRect();
+    let shift = 0;
+
+    if (rect.right > window.innerWidth - gutter) {
+      shift -= rect.right - (window.innerWidth - gutter);
+    }
+
+    if (rect.left < gutter) {
+      shift += gutter - rect.left;
+    }
+
+    dropdown.style.setProperty("--dropdown-shift", `${Math.round(shift)}px`);
   }
 
   if (dropdownToggle && dropdown) {
@@ -57,6 +87,9 @@
       const willOpen = dropdown.hidden;
       dropdown.hidden = !willOpen;
       dropdownToggle.setAttribute("aria-expanded", String(willOpen));
+      if (willOpen) {
+        requestAnimationFrame(alignDropdownWithinViewport);
+      }
     });
 
     document.addEventListener("click", (event) => {
@@ -74,6 +107,14 @@
 
     dropdown.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", closeDropdown);
+    });
+
+    window.addEventListener("resize", () => {
+      if (dropdown.hidden) {
+        dropdown.style.removeProperty("--dropdown-shift");
+        return;
+      }
+      requestAnimationFrame(alignDropdownWithinViewport);
     });
   }
 
@@ -288,6 +329,20 @@
         });
 
         if (!response.ok) {
+          let isQuotaError = response.status === 429;
+          if (!isQuotaError) {
+            const errorBody = (await response.text()).toLowerCase();
+            isQuotaError = /(quota|limit|rate|too many|exceed|monthly|usage|credits)/.test(errorBody);
+          }
+
+          if (isQuotaError) {
+            setFormStatus("Προσωρινά εκτός λειτουργίας.", true);
+            trackEvent("contact_form_submit_quota_exceeded", {
+              status_code: response.status
+            });
+            return;
+          }
+
           throw new Error("FORM_SUBMIT_FAILED");
         }
 
