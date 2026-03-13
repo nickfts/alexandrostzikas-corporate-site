@@ -690,6 +690,30 @@ p {
   margin-bottom: 1rem;
 }
 
+.breadcrumb-trail {
+  flex-wrap: wrap;
+  color: var(--color-muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.breadcrumb-trail a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.breadcrumb-trail a:hover,
+.breadcrumb-trail a:focus-visible {
+  color: var(--color-primary-strong);
+  text-decoration: underline;
+}
+
+.breadcrumb-trail [aria-current="page"] {
+  color: var(--color-primary-strong);
+}
+
 .contact-grid {
   display: grid;
   gap: 1rem;

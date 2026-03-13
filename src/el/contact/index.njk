@@ -47,7 +47,11 @@ eleventyComputed:
       </article>
       <article class="contact-card">
         <h2>Διεύθυνση</h2>
-        <p>{{ siteData.settings.address }}</p>
+        <p>
+          <a href="{{ siteData.settings.google_maps_action_url or siteData.settings.google_maps_url or 'https://maps.google.com/' }}" target="_blank" rel="noopener noreferrer" data-track-event="google_maps_click" data-track-label="contact_address">
+            {{ siteData.settings.address }}
+          </a>
+        </p>
       </article>
       <article class="contact-card">
         <h2>Website</h2>

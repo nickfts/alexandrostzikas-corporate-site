@@ -13,13 +13,14 @@ eleventyComputed:
 ---
 <section class="section section-page-head">
   <div class="container">
-    <p class="eyebrow">Υποκατηγορία</p>
-    <h1>{{ subcategory.title }}</h1>
-    <p class="breadcrumb">
-      <a href="/el/products/">Κατηγορίες</a>
+    <nav class="breadcrumb breadcrumb-trail" aria-label="Breadcrumb">
+      <a href="/el/products/">Προϊόντα</a>
       <span>/</span>
       <a href="/el/products/{{ subcategory.category }}/">{{ siteData.categoryBySlug[subcategory.category].title }}</a>
-    </p>
+      <span>/</span>
+      <span aria-current="page">{{ subcategory.title }}</span>
+    </nav>
+    <h1>{{ subcategory.title }}</h1>
     <div class="rich-text rich-text-intro">
       {{ subcategory.intro | markdown | safe }}
     </div>
