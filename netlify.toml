@@ -3,6 +3,12 @@
   publish = "dist"
 
 [[redirects]]
+  from = "https://zesty-centaur-04fe4d.netlify.app/*"
+  to = "https://www.alexandrostzikas.gr/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/"
   to = "/el/"
   status = 301
