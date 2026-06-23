@@ -8,8 +8,8 @@ publish_mode: simple
 media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
 
-site_url: "https://example.com"
-display_url: "https://example.com"
+site_url: "https://www.alexandrostzikas.gr"
+display_url: "https://www.alexandrostzikas.gr"
 logo_url: "/assets/branding/logo.png"
 
 slug:
