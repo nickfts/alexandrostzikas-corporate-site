@@ -1,0 +1,11 @@
+{
+  "title": "Καραμέλα Μέλι",
+  "slug": "karamela-meli",
+  "category": "syskevasmena",
+  "subcategory": "karameles",
+  "description": "Καραμέλες με γεύση μέλι, με ήπια γλυκύτητα και κλασική αίσθηση.",
+  "packaging": "Κατόπιν επικοινωνίας",
+  "image": "",
+  "order": 10,
+  "is_visible": true
+}

@@ -1,0 +1,11 @@
+{
+  "title": "Βαρελάκι Κεράσι",
+  "slug": "varelaki-kerasi",
+  "category": "syskevasmena",
+  "subcategory": "kerasmata",
+  "description": "Κέρασμα βαρελάκι με γεύση κεράσι και διακριτή παρουσία.",
+  "packaging": "Κατόπιν επικοινωνίας",
+  "image": "",
+  "order": 10,
+  "is_visible": true
+}

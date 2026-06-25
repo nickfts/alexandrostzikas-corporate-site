@@ -53,6 +53,11 @@ eleventyComputed:
       {% endif %}
       {% endfor %}
     </div>
+    {% if visibleCategories.length > 6 %}
+    <div class="section-more-link">
+      <a class="btn btn-outline" href="/el/products/">Περισσότερες κατηγορίες προϊόντων</a>
+    </div>
+    {% endif %}
     {% else %}
     <p class="state-message">Δεν έχουν οριστεί ακόμη κατηγορίες προϊόντων.</p>
     {% endif %}

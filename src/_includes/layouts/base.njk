@@ -44,20 +44,94 @@
     {% if page.url == '/el/leaflets/' %}
     <script defer src="/assets/js/leaflets-viewer.js"></script>
     {% endif %}
-    {% set orgSchema = {
+    {% set sameAs = [] %}
+    {% if siteData.settings.social_facebook and siteData.settings.social_facebook != 'https://facebook.com/' %}
+      {% set sameAs = sameAs.concat([siteData.settings.social_facebook]) %}
+    {% endif %}
+    {% if siteData.settings.social_instagram and siteData.settings.social_instagram != 'https://instagram.com/' %}
+      {% set sameAs = sameAs.concat([siteData.settings.social_instagram]) %}
+    {% endif %}
+    {% if siteData.settings.social_tiktok and siteData.settings.social_tiktok != 'https://tiktok.com/@' %}
+      {% set sameAs = sameAs.concat([siteData.settings.social_tiktok]) %}
+    {% endif %}
+    {% set businessSchema = {
       "@context": "https://schema.org",
-      "@type": "Organization",
+      "@type": "LocalBusiness",
+      "@id": meta.siteUrl + "/#business",
       "name": siteData.settings.company_name,
       "url": meta.siteUrl,
       "logo": meta.siteUrl + (siteData.settings.logo_path or '/assets/branding/logo.png'),
+      "image": meta.siteUrl + (siteData.settings.og_image or '/assets/branding/logo-slogan.png'),
       "email": siteData.settings.email,
       "telephone": siteData.settings.primary_phone,
+      "hasMap": siteData.settings.google_maps_action_url or siteData.settings.google_maps_url,
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": siteData.settings.address
+        "streetAddress": siteData.settings.address,
+        "addressLocality": "Σβορώνος",
+        "addressRegion": "Πιερία",
+        "postalCode": "60100",
+        "addressCountry": "GR"
+      },
+      "sameAs": sameAs
+    } %}
+    {% if siteData.settings.enable_hours and siteData.settings.business_hours %}
+      {% set businessSchema = businessSchema | merge({ "openingHours": siteData.settings.business_hours }) %}
+    {% endif %}
+    {% set websiteSchema = {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": meta.siteUrl + "/#website",
+      "name": siteData.settings.company_name,
+      "url": meta.siteUrl,
+      "inLanguage": "el-GR",
+      "publisher": {
+        "@id": meta.siteUrl + "/#business"
       }
     } %}
-    <script type="application/ld+json">{{ orgSchema | json | safe }}</script>
+    <script type="application/ld+json">{{ businessSchema | json | safe }}</script>
+    <script type="application/ld+json">{{ websiteSchema | json | safe }}</script>
+    {% if page.url == '/el/products/' %}
+    {% set breadcrumbSchema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Αρχική", "item": meta.siteUrl + "/el/" },
+        { "@type": "ListItem", "position": 2, "name": "Προϊόντα", "item": meta.siteUrl + "/el/products/" }
+      ]
+    } %}
+    <script type="application/ld+json">{{ breadcrumbSchema | json | safe }}</script>
+    {% endif %}
+    {% for schemaCategory in siteData.categories %}
+      {% if page.url == '/el/products/' + schemaCategory.slug + '/' %}
+        {% set breadcrumbSchema = {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Αρχική", "item": meta.siteUrl + "/el/" },
+            { "@type": "ListItem", "position": 2, "name": "Προϊόντα", "item": meta.siteUrl + "/el/products/" },
+            { "@type": "ListItem", "position": 3, "name": schemaCategory.title, "item": meta.siteUrl + "/el/products/" + schemaCategory.slug + "/" }
+          ]
+        } %}
+        <script type="application/ld+json">{{ breadcrumbSchema | json | safe }}</script>
+      {% endif %}
+    {% endfor %}
+    {% for schemaSubcategory in siteData.subcategories %}
+      {% set schemaParent = siteData.categoryBySlug[schemaSubcategory.category] %}
+      {% if schemaParent and page.url == '/el/products/' + schemaSubcategory.category + '/' + schemaSubcategory.slug + '/' %}
+        {% set breadcrumbSchema = {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Αρχική", "item": meta.siteUrl + "/el/" },
+            { "@type": "ListItem", "position": 2, "name": "Προϊόντα", "item": meta.siteUrl + "/el/products/" },
+            { "@type": "ListItem", "position": 3, "name": schemaParent.title, "item": meta.siteUrl + "/el/products/" + schemaParent.slug + "/" },
+            { "@type": "ListItem", "position": 4, "name": schemaSubcategory.title, "item": meta.siteUrl + "/el/products/" + schemaSubcategory.category + "/" + schemaSubcategory.slug + "/" }
+          ]
+        } %}
+        <script type="application/ld+json">{{ breadcrumbSchema | json | safe }}</script>
+      {% endif %}
+    {% endfor %}
   </head>
   <body>
     <a class="skip-link" href="#main-content">Μετάβαση στο περιεχόμενο</a>
@@ -95,15 +169,6 @@
                   {% for category in siteData.navCategories %}
                   <li class="dropdown-category">
                     <a href="/el/products/{{ category.slug }}/">{{ category.menu_title }}</a>
-                    {% if category.subcategories.length %}
-                    <ul>
-                      {% for subcategory in category.subcategories %}
-                      <li>
-                        <a href="/el/products/{{ category.slug }}/{{ subcategory.slug }}/">{{ subcategory.title }}</a>
-                      </li>
-                      {% endfor %}
-                    </ul>
-                    {% endif %}
                   </li>
                   {% endfor %}
                 </ul>

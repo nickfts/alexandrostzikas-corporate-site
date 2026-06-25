@@ -874,6 +874,12 @@ p {
   background: transparent;
 }
 
+.section-more-link {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.8rem;
+}
+
 .leaflet-actions {
   margin-top: 0.85rem;
   display: flex;
