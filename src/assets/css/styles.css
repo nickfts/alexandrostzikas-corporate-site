@@ -1,4 +1,83 @@
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap");
+/* Manrope is self-hosted in Greek and Latin subsets. */
+@font-face {
+  font-family: "Manrope";
+  src: url("/assets/fonts/manrope-greek-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("/assets/fonts/manrope-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("/assets/fonts/manrope-greek-500-normal.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("/assets/fonts/manrope-latin-500-normal.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("/assets/fonts/manrope-greek-600-normal.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("/assets/fonts/manrope-latin-600-normal.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("/assets/fonts/manrope-greek-700-normal.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("/assets/fonts/manrope-latin-700-normal.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
 
 @font-face {
   font-family: "Aka Acid Dosis";
@@ -833,6 +912,13 @@ p {
   color: #5a211a;
 }
 
+.form-status-countdown {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.82em;
+  font-weight: 400;
+}
+
 .map-frame {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
@@ -1325,6 +1411,11 @@ body.has-cookie-banner {
 }
 
 @media (min-width: 1024px) {
+  .leaflet-modal-panel {
+    margin: 2rem;
+    max-height: calc(100dvh - 4rem);
+  }
+
   .menu-toggle {
     display: none;
   }

@@ -73,20 +73,9 @@
     if (window.pdfjsLib) return Promise.resolve(window.pdfjsLib);
     if (pdfLibPromise) return pdfLibPromise;
 
-    pdfLibPromise = new Promise((resolve, reject) => {
-      const script = document.createElement("script");
-      script.src = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
-      script.onload = () => {
-        if (!window.pdfjsLib) {
-          reject(new Error("Το PDF.js δεν φορτώθηκε."));
-          return;
-        }
-        window.pdfjsLib.GlobalWorkerOptions.workerSrc =
-          "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
-        resolve(window.pdfjsLib);
-      };
-      script.onerror = () => reject(new Error("Αποτυχία φόρτωσης PDF.js."));
-      document.head.appendChild(script);
+    pdfLibPromise = import("/assets/vendor/pdfjs/pdf.min.mjs").then((pdfjsLib) => {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = "/assets/vendor/pdfjs/pdf.worker.min.mjs";
+      return pdfjsLib;
     });
 
     return pdfLibPromise;
@@ -219,16 +208,6 @@
 
   zoomInBtn.addEventListener("click", () => adjustZoom(0.15));
   zoomOutBtn.addEventListener("click", () => adjustZoom(-0.15));
-
-  viewerContent.addEventListener(
-    "wheel",
-    (event) => {
-      if (!activeType) return;
-      event.preventDefault();
-      adjustZoom(event.deltaY < 0 ? 0.1 : -0.1);
-    },
-    { passive: false }
-  );
 
   window.addEventListener("resize", () => {
     if (modal.hidden || !activeType) return;

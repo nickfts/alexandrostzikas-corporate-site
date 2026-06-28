@@ -33,6 +33,21 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
   eleventyConfig.addPassthroughCopy({ assets: "assets" });
+  eleventyConfig.addPassthroughCopy({
+    "node_modules/pdfjs-dist/build/pdf.min.mjs": "assets/vendor/pdfjs/pdf.min.mjs",
+    "node_modules/pdfjs-dist/build/pdf.worker.min.mjs":
+      "assets/vendor/pdfjs/pdf.worker.min.mjs",
+    "node_modules/pdfjs-dist/LICENSE": "assets/vendor/pdfjs/LICENSE.txt",
+    "node_modules/@fontsource/manrope/LICENSE": "assets/fonts/Manrope-LICENSE.txt"
+  });
+  for (const weight of [400, 500, 600, 700]) {
+    for (const subset of ["greek", "latin"]) {
+      const filename = `manrope-${subset}-${weight}-normal.woff2`;
+      eleventyConfig.addPassthroughCopy({
+        [`node_modules/@fontsource/manrope/files/${filename}`]: `assets/fonts/${filename}`
+      });
+    }
+  }
   if (fs.existsSync(".generated")) {
     eleventyConfig.addPassthroughCopy({ ".generated": "assets/generated" });
   }

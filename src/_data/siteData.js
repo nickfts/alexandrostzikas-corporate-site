@@ -209,6 +209,21 @@ function normalizeGoogleMapsActionUrl(rawGoogleMapsUrl, rawMapEmbedUrl, rawAddre
 
   try {
     const url = new URL(preferred);
+    const host = url.hostname.toLowerCase();
+    const isGoogleMaps =
+      host.includes("google.") && (host.includes("maps") || url.pathname.includes("/maps"));
+
+    // Keep a direct place listing intact so links open the business card, not coordinates.
+    if (
+      mapsCandidate &&
+      preferred === mapsCandidate &&
+      isGoogleMaps &&
+      !isGenericGoogleMapsRoot(preferred) &&
+      !url.pathname.includes("/maps/embed")
+    ) {
+      return preferred;
+    }
+
     const coordinates = extractCoordinatesFromGoogleUrl(preferred);
     if (coordinates) {
       return makeSearchUrl(coordinates);
@@ -219,9 +234,6 @@ function normalizeGoogleMapsActionUrl(rawGoogleMapsUrl, rawMapEmbedUrl, rawAddre
       return makeSearchUrl(q);
     }
 
-    const host = url.hostname.toLowerCase();
-    const isGoogleMaps =
-      host.includes("google.") && (host.includes("maps") || url.pathname.includes("/maps"));
     if (!isGoogleMaps) {
       return preferred;
     }

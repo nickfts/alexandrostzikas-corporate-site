@@ -290,6 +290,10 @@
   if (contactForm) {
     const statusEl = contactForm.querySelector("[data-form-status]");
     const submitBtn = contactForm.querySelector("button[type='submit']");
+    const submissionCooldownMs = 60 * 1000;
+    const cooldownStorageKey = "contactFormLastSuccessfulSubmission";
+    let cooldownTimer = null;
+    let lastSuccessfulSubmission = 0;
 
     function setFormStatus(message, isError = false) {
       if (!statusEl) return;
@@ -297,6 +301,64 @@
       statusEl.textContent = message;
       statusEl.classList.toggle("is-error", isError);
       statusEl.classList.toggle("is-success", !isError);
+    }
+
+    function setCooldownStatus(seconds) {
+      if (!statusEl) return;
+      statusEl.hidden = false;
+      statusEl.classList.remove("is-error");
+      statusEl.classList.add("is-success");
+
+      const cooldownNote = document.createElement("small");
+      cooldownNote.className = "form-status-countdown";
+      cooldownNote.textContent = `Μπορείτε να αποστείλετε νέο μήνυμα σε ${seconds} δευτερόλεπτα.`;
+
+      statusEl.replaceChildren(
+        document.createTextNode(
+          "Το μήνυμά σας στάλθηκε επιτυχώς. Ευχαριστούμε για την επικοινωνία. Σύντομα θα επικοινωνήσουμε μαζί σας."
+        ),
+        cooldownNote
+      );
+    }
+
+    function getCooldownRemaining() {
+      try {
+        const storedSubmission = Number(window.localStorage.getItem(cooldownStorageKey));
+        const lastSubmission = Math.max(lastSuccessfulSubmission, storedSubmission || 0);
+        if (!Number.isFinite(lastSubmission)) return 0;
+        return Math.min(
+          submissionCooldownMs,
+          Math.max(0, submissionCooldownMs - (Date.now() - lastSubmission))
+        );
+      } catch {
+        return Math.max(0, submissionCooldownMs - (Date.now() - lastSuccessfulSubmission));
+      }
+    }
+
+    function startSubmissionCooldown() {
+      if (cooldownTimer) window.clearInterval(cooldownTimer);
+
+      const updateCooldown = () => {
+        const remaining = getCooldownRemaining();
+        if (remaining <= 0) {
+          window.clearInterval(cooldownTimer);
+          cooldownTimer = null;
+          if (submitBtn) submitBtn.disabled = false;
+          if (statusEl) statusEl.hidden = true;
+          return;
+        }
+
+        if (submitBtn) submitBtn.disabled = true;
+        const seconds = Math.ceil(remaining / 1000);
+        setCooldownStatus(seconds);
+      };
+
+      updateCooldown();
+      cooldownTimer = window.setInterval(updateCooldown, 1000);
+    }
+
+    if (getCooldownRemaining() > 0) {
+      startSubmissionCooldown();
     }
 
     contactForm.addEventListener("submit", async (event) => {
@@ -307,6 +369,11 @@
 
       if (!endpoint.trim()) {
         setFormStatus("Η φόρμα δεν είναι διαθέσιμη αυτή τη στιγμή.", true);
+        return;
+      }
+
+      if (getCooldownRemaining() > 0) {
+        startSubmissionCooldown();
         return;
       }
 
@@ -347,13 +414,19 @@
         }
 
         contactForm.reset();
-        setFormStatus("Το μήνυμά σας στάλθηκε επιτυχώς.", false);
+        lastSuccessfulSubmission = Date.now();
+        try {
+          window.localStorage.setItem(cooldownStorageKey, String(lastSuccessfulSubmission));
+        } catch {
+          // The in-flight button lock still prevents duplicate submissions.
+        }
+        startSubmissionCooldown();
         trackEvent("contact_form_submit_success");
       } catch (error) {
         setFormStatus("Δεν ήταν δυνατή η αποστολή. Προσπαθήστε ξανά σε λίγο.", true);
         trackEvent("contact_form_submit_error");
       } finally {
-        if (submitBtn) submitBtn.disabled = false;
+        if (submitBtn && getCooldownRemaining() <= 0) submitBtn.disabled = false;
       }
     });
   }
